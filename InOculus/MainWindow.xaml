@@ -4,11 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InOculus"
+        xmlns:properties="clr-namespace:InOculus.Properties"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="InOculus" Height="200" Width="200">
+        Title="InOculus" Height="200" Width="200" x:Name="wndInOculus">
     <!-- Extra packages: 
         - Bootstrap Icons (https://github.com/MahApps/MahApps.Metro.IconPacks)
+        - Windows WinRT API (Microsoft.Windows.SDK.Contracts)
     -->
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -18,9 +20,18 @@
         <Button x:Name="btnSettings">
             <iconPacks:BootstrapIcons Kind="Gear"/>
         </Button>
-        <Button Grid.Row="1" x:Name="btnStart">
-            <iconPacks:BootstrapIcons Kind="PlayFill"/>
+        <Button Grid.Row="1" Margin="10" Click="BtnStart_Click" x:Name="btnStart">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="100"/>
+                </Style>
+            </Button.Resources>
+            <StackPanel>
+                <Label x:Name="lblTime" Content="{Binding Path=CountDown}"></Label>
+                <iconPacks:BootstrapIcons Kind="PlayFill"/>
+            </StackPanel>
         </Button>
+        
         
     </Grid>
 </Window>
