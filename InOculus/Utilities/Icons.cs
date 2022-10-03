@@ -7,6 +7,7 @@ namespace InOculus.Utilities
     {
         public const PackIconBootstrapIconsKind Play = PlayFill;
         public const PackIconBootstrapIconsKind Stop = StopFill;
-        public const PackIconBootstrapIconsKind Settings = Gear;
+        public const PackIconBootstrapIconsKind Settings = GearFill;
+        public const PackIconBootstrapIconsKind Stats = BarChartLineFill;
     }
 }

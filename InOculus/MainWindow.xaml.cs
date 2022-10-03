@@ -1,5 +1,6 @@
 ﻿using InOculus.Utilities;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using Windows.UI.ViewManagement;
 
@@ -27,11 +28,13 @@ namespace InOculus
 
             var accentColor = Color.FromArgb(accent.A, accent.R, accent.G, accent.B);
             var accentBrush = new SolidColorBrush(accentColor);
-            var backgroundColor = Color.FromArgb(background.A, background.R, background.G, background.B);
+            // TODO: Alpha not working?
+            var backgroundColor = Color.FromArgb(125, background.R, background.G, background.B);
             var backgroundBrush = new SolidColorBrush(backgroundColor);
 
             btnStart.Background = accentBrush;
-            btnSettings.Background = accentBrush;
+            btnSettings.Foreground = accentBrush;
+            btnStats.Foreground = accentBrush;
             wndInOculus.Background = backgroundBrush;
         }
 
@@ -48,6 +51,14 @@ namespace InOculus
                 icnPlay.Kind = Icons.Stop;
             }
 
+        }
+
+        private void BtnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            var n = new Button();
+            n.Content = "Janicka";
+
+            btnSettings.Content = n;
         }
     }
 }
