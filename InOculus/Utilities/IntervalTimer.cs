@@ -1,16 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using System.Timers;
 
 namespace InOculus.Utilities
 {
-    class IntervalTimer: INotifyPropertyChanged
+    class IntervalTimer : INotifyPropertyChanged
     {
-        private Timer timer = new Timer(1000);
+        private static readonly TimeSpan interval = new TimeSpan(hours: 0, minutes: 0, seconds: 10);  //new TimeSpan(hours: 0, minutes: Properties.Settings.Default.Interval, seconds: 0);
+        private readonly Timer timer = new Timer(1000);
+
         public event PropertyChangedEventHandler PropertyChanged;
-        public TimeSpan CountDown { get; private set; } = new TimeSpan(hours: 0, minutes: Properties.Settings.Default.Interval, seconds: 0);
+        public bool IsOn = false;
+
+        private TimeSpan countDown = interval;
+        public TimeSpan CountDown
+        {
+            get => countDown;
+            private set
+            {
+                countDown = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(CountDown)));
+            }
+        }
 
         public IntervalTimer()
         {
@@ -20,12 +31,24 @@ namespace InOculus.Utilities
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             CountDown += TimeSpan.FromSeconds(-1);
-            PropertyChanged(this, new PropertyChangedEventArgs(nameof(CountDown)));
+
+            if (CountDown.TotalSeconds == 0)
+            {
+                Reset();
+            }
         }
 
         public void Start()
         {
             timer.Start();
+            IsOn = true;
+        }
+
+        public void Reset()
+        {
+            timer.Stop();
+            CountDown = interval;
+            IsOn = false;
         }
     }
 }

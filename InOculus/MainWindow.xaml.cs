@@ -1,19 +1,6 @@
 ﻿using InOculus.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Windows.UI.ViewManagement;
 
 namespace InOculus
@@ -23,8 +10,7 @@ namespace InOculus
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IntervalTimer IntervalTimer = new IntervalTimer();
-
+        private readonly IntervalTimer IntervalTimer = new IntervalTimer();
 
         public MainWindow()
         {
@@ -43,7 +29,7 @@ namespace InOculus
             var accentBrush = new SolidColorBrush(accentColor);
             var backgroundColor = Color.FromArgb(background.A, background.R, background.G, background.B);
             var backgroundBrush = new SolidColorBrush(backgroundColor);
-             
+
             btnStart.Background = accentBrush;
             btnSettings.Background = accentBrush;
             wndInOculus.Background = backgroundBrush;
@@ -51,7 +37,17 @@ namespace InOculus
 
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
-            IntervalTimer.Start();
+            if (IntervalTimer.IsOn)
+            {
+                IntervalTimer.Reset();
+                icnPlay.Kind = Icons.Play;
+            }
+            else
+            {
+                IntervalTimer.Start();
+                icnPlay.Kind = Icons.Stop;
+            }
+
         }
     }
 }
