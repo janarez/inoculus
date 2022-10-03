@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InOculus"
         xmlns:properties="clr-namespace:InOculus.Properties"
+        xmlns:utilities="clr-namespace:InOculus.Utilities"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="InOculus" Height="200" Width="200" x:Name="wndInOculus">
@@ -18,7 +19,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Button x:Name="btnSettings">
-            <iconPacks:BootstrapIcons Kind="Gear"/>
+            <iconPacks:BootstrapIcons Kind="{x:Static utilities:Icons.Settings}"/>
         </Button>
         <Button Grid.Row="1" Margin="10" Click="BtnStart_Click" x:Name="btnStart">
             <Button.Resources>
@@ -27,11 +28,9 @@
                 </Style>
             </Button.Resources>
             <StackPanel>
-                <Label x:Name="lblTime" Content="{Binding Path=CountDown}"></Label>
-                <iconPacks:BootstrapIcons Kind="PlayFill"/>
+                <Label Content="{Binding Path=CountDown}" x:Name="lblTime" ></Label>
+                <iconPacks:PackIconBootstrapIcons Kind="{x:Static utilities:Icons.Play}" x:Name="icnPlay"/>
             </StackPanel>
         </Button>
-        
-        
     </Grid>
 </Window>
