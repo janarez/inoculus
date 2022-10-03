@@ -35,6 +35,7 @@ namespace InOculus.Utilities
             if (CountDown.TotalSeconds == 0)
             {
                 Reset();
+                Start();
             }
         }
 
