@@ -38,7 +38,7 @@
                 </Style>
             </Button.Resources>
             <Grid Margin="-10">
-                <Path Stroke="Red" StrokeThickness="10" Stretch="None" Height="150" Width="150" x:Name="arcCountDown">
+                <Path Visibility="Hidden" Stroke="Red" StrokeThickness="10" Stretch="None" Height="150" Width="150" x:Name="arcCountDown">
                     <Path.Data>
                         <PathGeometry>
                             <PathGeometry.Figures>

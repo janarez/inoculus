@@ -45,11 +45,13 @@ namespace InOculus
             {
                 IntervalTimer.Reset();
                 icnPlay.Kind = Icons.Play;
+                arcCountDown.Visibility = Visibility.Hidden;
             }
             else
             {
                 IntervalTimer.Start();
                 icnPlay.Kind = Icons.Stop;
+                arcCountDown.Visibility = Visibility.Visible;
             }
 
         }
