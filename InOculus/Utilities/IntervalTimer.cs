@@ -8,10 +8,10 @@ namespace InOculus.Utilities
 {
     class IntervalTimer : INotifyPropertyChanged
     {
-        private static readonly TimeSpan interval = new TimeSpan(hours: 0, minutes: 0, seconds: 5);  //new TimeSpan(hours: 0, minutes: Properties.Settings.Default.Interval, seconds: 0);
-        private static readonly int step = 1000;
+        private static readonly TimeSpan interval = new TimeSpan(hours: 0, minutes: 0, seconds: 60);  //new TimeSpan(hours: 0, minutes: Properties.Settings.Default.Interval, seconds: 0);
+        private static readonly double seconds_per_step = 0.1;
 
-        private readonly Timer timer = new Timer(step);
+        private readonly Timer timer = new Timer(seconds_per_step * 1000);
 
         public event PropertyChangedEventHandler PropertyChanged;
         public bool IsOn = false;
@@ -26,7 +26,7 @@ namespace InOculus.Utilities
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(CountDown)));
             }
         }
-        public CountDownCircle CountDownCircle = new CountDownCircle(total_seconds: interval.TotalSeconds, seconds_per_step: step / 1000, circle_diameter: 150, circle_thickness: 10);
+        public CountDownCircle CountDownCircle = new CountDownCircle(total_seconds: interval.TotalSeconds, seconds_per_step: seconds_per_step, circle_diameter: 150, circle_thickness: 10);
 
         public IntervalTimer()
         {
@@ -35,7 +35,7 @@ namespace InOculus.Utilities
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            CountDown += TimeSpan.FromSeconds(-1);
+            CountDown += TimeSpan.FromSeconds(-seconds_per_step);
             CountDownCircle.Tick();
             
             Debug.WriteLine($"{CountDown.TotalSeconds}: ({ (int)CountDownCircle.EndPoint.X}, {(int)CountDownCircle.EndPoint.Y})");
