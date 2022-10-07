@@ -24,7 +24,7 @@ namespace InOculus.Utilities
             private set
             {
                 isLargeArc = value;
-                // PropertyChanged(this, new PropertyChangedEventArgs(nameof(IsLargeArc)));
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(IsLargeArc)));
             }
         }
 
@@ -37,7 +37,6 @@ namespace InOculus.Utilities
 
             // Start at the top, then go clockwise every `seconds_per_step`.
             angle_step = 2 * Math.PI / (total_seconds / seconds_per_step);
-            Reset();
         }
 
         public void Tick()
@@ -48,12 +47,13 @@ namespace InOculus.Utilities
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(EndPoint)));
         }
 
-        public void Reset()
+        public void Start()
         {
             current_angle = 0;
             IsLargeArc = true;
-            endPoint.X = circle_radius;
+            endPoint.X = circle_radius + 0.001;  // Add little offset to force paint of full circle.
             endPoint.Y = circle_thickness / 2;
+            PropertyChanged(this, new PropertyChangedEventArgs(nameof(EndPoint)));
         }
 
         private void SetPosition()

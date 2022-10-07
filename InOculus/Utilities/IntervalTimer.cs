@@ -8,7 +8,7 @@ namespace InOculus.Utilities
 {
     class IntervalTimer : INotifyPropertyChanged
     {
-        private static readonly TimeSpan interval = new TimeSpan(hours: 0, minutes: 0, seconds: 23);  //new TimeSpan(hours: 0, minutes: Properties.Settings.Default.Interval, seconds: 0);
+        private static readonly TimeSpan interval = new TimeSpan(hours: 0, minutes: 0, seconds: 5);  //new TimeSpan(hours: 0, minutes: Properties.Settings.Default.Interval, seconds: 0);
         private static readonly int step = 1000;
 
         private readonly Timer timer = new Timer(step);
@@ -51,6 +51,7 @@ namespace InOculus.Utilities
         public void Start()
         {
             timer.Start();
+            CountDownCircle.Start();
             IsOn = true;
         }
 
@@ -58,7 +59,6 @@ namespace InOculus.Utilities
         {
             timer.Stop();
             CountDown = interval;
-            CountDownCircle.Reset();
             IsOn = false;
         }
     }
