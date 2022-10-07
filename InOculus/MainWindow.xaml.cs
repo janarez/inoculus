@@ -18,6 +18,7 @@ namespace InOculus
             InitializeComponent();
             InitializeColorTheme();
             lblTime.DataContext = IntervalTimer;
+            arcCountDown.DataContext = IntervalTimer.CountDownCircle;
         }
 
         private void InitializeColorTheme()
