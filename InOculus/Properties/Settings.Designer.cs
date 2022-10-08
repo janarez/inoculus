@@ -26,12 +26,24 @@ namespace InOculus.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public int Interval {
+        public int FocusInterval {
             get {
-                return ((int)(this["Interval"]));
+                return ((int)(this["FocusInterval"]));
             }
             set {
-                this["Interval"] = value;
+                this["FocusInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int BreakInterval {
+            get {
+                return ((int)(this["BreakInterval"]));
+            }
+            set {
+                this["BreakInterval"] = value;
             }
         }
     }

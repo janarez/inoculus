@@ -3,6 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Windows.UI.ViewManagement;
+using System.Timers;
+using System.ComponentModel;
+using System;
 
 namespace InOculus
 {
@@ -12,13 +15,41 @@ namespace InOculus
     public partial class MainWindow : Window
     {
         private readonly IntervalTimer IntervalTimer = new IntervalTimer();
+        private readonly CountDownCircle CountDownCircle = new CountDownCircle(circle_diameter: 150, circle_thickness: 10);
+        
+        private readonly Timer focusTimer = new Timer(UserPreferences.FocusInterval.TotalMilliseconds);
+        private readonly Timer breakTimer = new Timer(UserPreferences.BreakInterval.TotalMilliseconds);
+
+        private bool focusOn = false;
 
         public MainWindow()
         {
             InitializeComponent();
             InitializeColorTheme();
+
             lblTime.DataContext = IntervalTimer;
-            arcCountDown.DataContext = IntervalTimer.CountDownCircle;
+            arcCountDown.DataContext = CountDownCircle;
+
+            focusTimer.Elapsed += StartBreak; 
+            breakTimer.Elapsed += StartFocusing;
+        }
+
+        private void StartBreak(object sender, ElapsedEventArgs e)
+        {
+            focusTimer.Stop();
+            breakTimer.Start();
+            IntervalTimer.Reset();
+            CountDownCircle.Stop();
+            focusOn = false;
+        }
+
+        private void StartFocusing(object sender, ElapsedEventArgs e)
+        {
+            breakTimer.Stop();
+            focusTimer.Start();
+            IntervalTimer.Start();
+            CountDownCircle.Start();
+            focusOn = true;
         }
 
         private void InitializeColorTheme()
@@ -40,20 +71,21 @@ namespace InOculus
         }
 
         private void BtnStart_Click(object sender, RoutedEventArgs e)
-        {
-            if (IntervalTimer.IsOn)
+        {   
+            // Stop.
+            if (focusOn)
             {
-                IntervalTimer.Reset();
+                StartBreak(null, null);
                 icnPlay.Kind = Icons.Play;
                 arcCountDown.Visibility = Visibility.Hidden;
             }
+            // Start.
             else
             {
-                IntervalTimer.Start();
+                StartFocusing(null, null);
                 icnPlay.Kind = Icons.Stop;
                 arcCountDown.Visibility = Visibility.Visible;
             }
-
         }
 
         private void BtnSettings_Click(object sender, RoutedEventArgs e)

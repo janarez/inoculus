@@ -8,25 +8,33 @@ namespace InOculus.Utilities
 {
     class IntervalTimer : INotifyPropertyChanged
     {
-        private static readonly TimeSpan interval = new TimeSpan(hours: 0, minutes: 0, seconds: 60);  //new TimeSpan(hours: 0, minutes: Properties.Settings.Default.Interval, seconds: 0);
-        private static readonly double seconds_per_step = 0.1;
-
-        private readonly Timer timer = new Timer(seconds_per_step * 1000);
+        private readonly Timer timer = new Timer(AppPreferences.IntervalTimerSpeed);
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public bool IsOn = false;
 
-        private TimeSpan countDown = interval;
-        public TimeSpan CountDown
+        private TimeSpan _countDown = UserPreferences.FocusInterval;
+        private TimeSpan countDown
         {
-            get => countDown;
-            private set
+            get => _countDown;
+            set
             {
-                countDown = value;
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(CountDown)));
+                _countDown = value;
+                if (_countDown.Milliseconds == 0)
+                {
+                    CountDownString = $"{(int)_countDown.TotalMinutes} m {_countDown.Seconds} s";
+                }
             }
         }
-        public CountDownCircle CountDownCircle = new CountDownCircle(total_seconds: interval.TotalSeconds, seconds_per_step: seconds_per_step, circle_diameter: 150, circle_thickness: 10);
+        private string countDownString;
+        public string CountDownString
+        {
+            get => countDownString;
+            private set
+            {
+                countDownString = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(CountDownString)));
+            }
+        }
 
         public IntervalTimer()
         {
@@ -35,15 +43,12 @@ namespace InOculus.Utilities
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            CountDown += TimeSpan.FromSeconds(-seconds_per_step);
-            CountDownCircle.Tick();
+            countDown += TimeSpan.FromSeconds(-AppPreferences.IntervalTimerSpeed / 1000);
             
-            Debug.WriteLine($"{CountDown.TotalSeconds}: ({ (int)CountDownCircle.EndPoint.X}, {(int)CountDownCircle.EndPoint.Y})");
-
-            if (CountDown.TotalSeconds == 0)
+            if (countDown.TotalSeconds == 0)
             {
                 Reset();
-                Sleep(2000);
+                Sleep((int)UserPreferences.BreakInterval.TotalMilliseconds);
                 Start();
             }
         }
@@ -51,15 +56,12 @@ namespace InOculus.Utilities
         public void Start()
         {
             timer.Start();
-            CountDownCircle.Start();
-            IsOn = true;
         }
 
         public void Reset()
         {
             timer.Stop();
-            CountDown = interval;
-            IsOn = false;
+            countDown = UserPreferences.FocusInterval;
         }
     }
 }
