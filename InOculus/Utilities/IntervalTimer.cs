@@ -44,24 +44,17 @@ namespace InOculus.Utilities
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             countDown += TimeSpan.FromSeconds(-AppPreferences.IntervalTimerSpeed / 1000);
-            
-            if (countDown.TotalSeconds == 0)
-            {
-                Reset();
-                Sleep((int)UserPreferences.BreakInterval.TotalMilliseconds);
-                Start();
-            }
         }
 
         public void Start()
         {
+            countDown = UserPreferences.FocusInterval;
             timer.Start();
         }
 
-        public void Reset()
+        public void Stop()
         {
             timer.Stop();
-            countDown = UserPreferences.FocusInterval;
         }
     }
 }

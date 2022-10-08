@@ -30,26 +30,8 @@ namespace InOculus
             lblTime.DataContext = IntervalTimer;
             arcCountDown.DataContext = CountDownCircle;
 
-            focusTimer.Elapsed += StartBreak; 
-            breakTimer.Elapsed += StartFocusing;
-        }
-
-        private void StartBreak(object sender, ElapsedEventArgs e)
-        {
-            focusTimer.Stop();
-            breakTimer.Start();
-            IntervalTimer.Reset();
-            CountDownCircle.Stop();
-            focusOn = false;
-        }
-
-        private void StartFocusing(object sender, ElapsedEventArgs e)
-        {
-            breakTimer.Stop();
-            focusTimer.Start();
-            IntervalTimer.Start();
-            CountDownCircle.Start();
-            focusOn = true;
+            focusTimer.Elapsed += FocusTimer_Elapsed; 
+            breakTimer.Elapsed += BreakTimer_Elapsed;
         }
 
         private void InitializeColorTheme()
@@ -75,17 +57,45 @@ namespace InOculus
             // Stop.
             if (focusOn)
             {
-                StartBreak(null, null);
+                StopFocusing();
                 icnPlay.Kind = Icons.Play;
                 arcCountDown.Visibility = Visibility.Hidden;
             }
             // Start.
             else
             {
-                StartFocusing(null, null);
+                StartFocusing();
                 icnPlay.Kind = Icons.Stop;
                 arcCountDown.Visibility = Visibility.Visible;
             }
+        }
+
+        private void FocusTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            StopFocusing();
+            breakTimer.Start();
+        }
+
+        private void BreakTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            breakTimer.Stop();
+            StartFocusing();
+        }
+
+        private void StopFocusing()
+        {
+            focusTimer.Stop();
+            IntervalTimer.Stop();
+            CountDownCircle.Stop();
+            focusOn = false;
+        }
+
+        private void StartFocusing()
+        {
+            focusTimer.Start();
+            IntervalTimer.Start();
+            CountDownCircle.Start();
+            focusOn = true;
         }
 
         private void BtnSettings_Click(object sender, RoutedEventArgs e)
