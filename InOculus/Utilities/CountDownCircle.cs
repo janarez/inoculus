@@ -9,9 +9,6 @@ namespace InOculus.Utilities
     class CountDownCircle : INotifyPropertyChanged
     {
         private readonly Timer timer = new Timer(AppPreferences.CountDownCircleSpeed);
-
-        private readonly double circle_radius;    // Radius from outer edge to center.
-        private readonly double circle_thickness; // Width of circle line.
         private readonly double angle_step;
 
         private double current_angle;
@@ -33,11 +30,8 @@ namespace InOculus.Utilities
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public CountDownCircle(double circle_diameter, double circle_thickness)
+        public CountDownCircle()
         {
-            circle_radius = circle_diameter / 2;
-            this.circle_thickness = circle_thickness;
-
             // Start at the top, then go clockwise every `seconds_per_step`.
             angle_step = 2 * Math.PI / (UserPreferences.FocusInterval.TotalMilliseconds / AppPreferences.CountDownCircleSpeed);
 
@@ -56,8 +50,8 @@ namespace InOculus.Utilities
         {
             current_angle = 0;
             IsLargeArc = true;
-            endPoint.X = circle_radius + 0.001;  // Add little offset to force paint of full circle.
-            endPoint.Y = circle_thickness / 2;
+            endPoint.X = AppPreferences.CircleRadius + 0.001;  // Add little offset to force paint of full circle.
+            endPoint.Y = AppPreferences.CircleHalfThickness;
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(EndPoint)));
             timer.Start();
         }
@@ -81,17 +75,14 @@ namespace InOculus.Utilities
 
         private void UpdateX()
         {
-            double x = Math.Abs(Math.Sin(current_angle)) * (circle_radius - circle_thickness / 2);
-            x = isInRightHalf? circle_radius + x : circle_radius - x;
-            Debug.WriteLine($"x: {x}");
+            double x = Math.Abs(Math.Sin(current_angle)) * (AppPreferences.CircleRadius - AppPreferences.CircleHalfThickness);
+            x = isInRightHalf? AppPreferences.CircleRadius + x : AppPreferences.CircleRadius - x;
             endPoint.X = x;
         }
         private void UpdateY()
         {
-            double y = Math.Abs(Math.Cos(current_angle)) * (circle_radius - circle_thickness / 2);
-            Debug.WriteLine($"y: {y}");
-            y = isInBottomHalf ? y = circle_radius + y : circle_radius - y;
-            Debug.WriteLine($"y: {y}");
+            double y = Math.Abs(Math.Cos(current_angle)) * (AppPreferences.CircleRadius - AppPreferences.CircleHalfThickness);
+            y = isInBottomHalf ? y = AppPreferences.CircleRadius + y : AppPreferences.CircleRadius - y;
             endPoint.Y = y;
         }
     }

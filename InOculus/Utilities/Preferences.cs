@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 
 namespace InOculus.Utilities
 {
@@ -13,5 +14,18 @@ namespace InOculus.Utilities
         public static double CountDownCircleSpeed = 100;
         public static double IntervalTimerSpeed = 1000;
 
+        public static double WindowWidth = 200;
+        public static double WindowHeight = 240;
+
+        public static double CircleDiameter = 150;
+        public static double CircleThickness = 10;
+
+        // Helper variables for XAML binding.
+        public static double CircleRadius = CircleDiameter / 2;
+        public static double CircleHalfThickness = CircleThickness / 2;
+        public static Thickness BorderThickness = new Thickness(CircleThickness);
+        public static Thickness NegBorderThickness = new Thickness(-CircleThickness);
+        public static Point CircleStartPoint = new Point(CircleRadius, CircleHalfThickness);
+        public static Size CircleSize = new Size(CircleRadius - CircleHalfThickness, CircleRadius - CircleHalfThickness);
     }
 }

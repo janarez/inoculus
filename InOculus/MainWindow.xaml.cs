@@ -15,7 +15,7 @@ namespace InOculus
     public partial class MainWindow : Window
     {
         private readonly IntervalTimer IntervalTimer = new IntervalTimer();
-        private readonly CountDownCircle CountDownCircle = new CountDownCircle(circle_diameter: 150, circle_thickness: 10);
+        private readonly CountDownCircle CountDownCircle = new CountDownCircle();
         
         private readonly Timer focusTimer = new Timer(UserPreferences.FocusInterval.TotalMilliseconds);
         private readonly Timer breakTimer = new Timer(UserPreferences.BreakInterval.TotalMilliseconds);

@@ -8,7 +8,10 @@
         xmlns:utilities="clr-namespace:InOculus.Utilities"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="InOculus" Height="240" Width="200" ResizeMode="NoResize" x:Name="wndInOculus">
+        Title="InOculus" 
+        Height="{x:Static utilities:AppPreferences.WindowHeight}" 
+        Width="{x:Static utilities:AppPreferences.WindowWidth}" 
+        ResizeMode="NoResize" x:Name="wndInOculus">
     <!-- Extra packages: 
         - Bootstrap Icons (https://github.com/MahApps/MahApps.Metro.IconPacks)
         - Windows WinRT API (Microsoft.Windows.SDK.Contracts)
@@ -31,22 +34,26 @@
                 <iconPacks:BootstrapIcons Kind="{x:Static utilities:Icons.Settings}"/>
             </Button>
         </Grid>
-        <Button Grid.Row="1" Click="BtnStart_Click" BorderThickness="10" Height="150" Width="150" x:Name="btnStart">
+        <Button Grid.Row="1" Click="BtnStart_Click" BorderThickness="{x:Static utilities:AppPreferences.BorderThickness}"  
+                Height="{x:Static utilities:AppPreferences.CircleDiameter}" 
+                Width="{x:Static utilities:AppPreferences.CircleDiameter}" x:Name="btnStart">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="75"/>
                 </Style>
             </Button.Resources>
-            <Grid Margin="-10">
-                <Path Visibility="Hidden" Stroke="Red" StrokeThickness="10" Height="150" Width="150" x:Name="arcCountDown">
+            <Grid Margin="{x:Static utilities:AppPreferences.NegBorderThickness}" >
+                <Path Visibility="Hidden" Stroke="Red" StrokeThickness="{x:Static utilities:AppPreferences.CircleThickness}"
+                      Height="{x:Static utilities:AppPreferences.CircleDiameter}"  
+                      Width="{x:Static utilities:AppPreferences.CircleDiameter}" x:Name="arcCountDown">
                     <Path.Data>
                         <PathGeometry>
                             <PathGeometry.Figures>
                                 <PathFigureCollection>
-                                    <PathFigure StartPoint="75,5">
+                                    <PathFigure StartPoint="{x:Static utilities:AppPreferences.CircleStartPoint}">
                                         <PathFigure.Segments>
                                             <PathSegmentCollection>
-                                                <ArcSegment Size="70,70" IsLargeArc="{Binding Path=IsLargeArc}" SweepDirection="CounterClockwise" Point="{Binding Path=EndPoint}" />
+                                                <ArcSegment Size="{x:Static utilities:AppPreferences.CircleSize}" IsLargeArc="{Binding Path=IsLargeArc}" SweepDirection="CounterClockwise" Point="{Binding Path=EndPoint}" />
                                             </PathSegmentCollection>
                                         </PathFigure.Segments>
                                     </PathFigure>
