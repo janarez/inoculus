@@ -46,5 +46,17 @@ namespace InOculus.Properties {
                 this["BreakInterval"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("13")]
+        public int BreakWindowCloseKey {
+            get {
+                return ((int)(this["BreakWindowCloseKey"]));
+            }
+            set {
+                this["BreakWindowCloseKey"] = value;
+            }
+        }
     }
 }

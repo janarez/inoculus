@@ -49,7 +49,7 @@ namespace InOculus
             btnStart.Background = accentBrush;
             btnSettings.Foreground = accentBrush;
             btnStats.Foreground = accentBrush;
-            wndInOculus.Background = backgroundBrush;
+            wndMain.Background = backgroundBrush;
         }
 
         private void BtnStart_Click(object sender, RoutedEventArgs e)
@@ -100,10 +100,8 @@ namespace InOculus
 
         private void BtnSettings_Click(object sender, RoutedEventArgs e)
         {
-            var n = new Button();
-            n.Content = "Janicka";
-
-            btnSettings.Content = n;
+            var breakWindow = new BreakWindow();
+            breakWindow.Show();
         }
     }
 }
