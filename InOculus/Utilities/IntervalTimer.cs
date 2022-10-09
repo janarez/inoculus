@@ -8,7 +8,8 @@ namespace InOculus.Utilities
     {
         private readonly Timer timer = new Timer(AppPreferences.IntervalTimerSpeed);
 
-        private DisplayedTimeSpan countDown = UserPreferences.FocusInterval;
+        private readonly DisplayedTimeSpan countDownInterval;
+        private DisplayedTimeSpan countDown;
         public DisplayedTimeSpan CountDown
         {
             get => countDown;
@@ -21,8 +22,10 @@ namespace InOculus.Utilities
         public event PropertyChangedEventHandler PropertyChanged;
 
 
-        public IntervalTimer()
+        public IntervalTimer(DisplayedTimeSpan countDownInterval)
         {
+            this.countDownInterval = countDownInterval;
+            countDown = countDownInterval;
             timer.Elapsed += Timer_Elapsed;
         }
 
@@ -33,13 +36,18 @@ namespace InOculus.Utilities
 
         public void Start()
         {
-            CountDown = UserPreferences.FocusInterval;
+            CountDown = countDownInterval;
             timer.Start();
         }
 
         public void Stop()
         {
             timer.Stop();
+        }
+
+        public void Close()
+        {
+            timer.Close();
         }
     }
 

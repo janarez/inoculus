@@ -6,7 +6,7 @@ namespace InOculus.Utilities
     class UserPreferences
     {
         public static DisplayedTimeSpan FocusInterval = new DisplayedTimeSpan(minutes: 0, seconds: 10);  //new TimeSpan(hours: 0, minutes: Properties.Settings.Default.FocusInterval, seconds: 0);
-        public static TimeSpan BreakInterval = new TimeSpan(hours: 0, minutes: 0, seconds: 3);  //new TimeSpan(hours: 0, minutes: 0, seconds:  Properties.Settings.Default.BreakInterval);
+        public static DisplayedTimeSpan BreakInterval = new DisplayedTimeSpan(minutes: 0, seconds: 8);  //new TimeSpan(hours: 0, minutes: 0, seconds:  Properties.Settings.Default.BreakInterval);
     }
 
     class AppPreferences

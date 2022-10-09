@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="BreakWindow" WindowState="Maximized" WindowStyle="None" Background="Black" Opacity="0.55"
         KeyDown="WndBreak_KeyDown" x:Name="wndBreak">
-    <Grid >
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Label Foreground="#FF229D5C" FontSize="42" Content="{Binding Path=CountDown}" x:Name="lblTime"></Label>
         <TextBlock Foreground="#FF229D5C" FontSize="42">Pres ESC to go back</TextBlock>
     </Grid>
 </Window>

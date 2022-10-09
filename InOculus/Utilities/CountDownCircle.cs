@@ -61,6 +61,11 @@ namespace InOculus.Utilities
             timer.Stop();
         }
 
+        public void Close()
+        {
+            timer.Close();
+        }
+
         private void SetPosition()
         {
             current_angle += angle_step;
