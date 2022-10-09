@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InOculus"
         mc:Ignorable="d"
-        Title="BreakWindow" WindowState="Maximized" WindowStyle="None" Top Background="Black" Opacity="0.55"
+        Title="BreakWindow" WindowState="Maximized" WindowStyle="None" Background="Black" Opacity="0.55"
         KeyDown="WndBreak_KeyDown" x:Name="wndBreak">
     <Grid >
         <TextBlock Foreground="#FF229D5C" FontSize="42">Pres ESC to go back</TextBlock>

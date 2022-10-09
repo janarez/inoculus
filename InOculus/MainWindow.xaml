@@ -63,7 +63,7 @@
                     </Path.Data>
                 </Path>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Label Content="{Binding Path=CountDownString}" x:Name="lblTime"></Label>
+                    <Label Content="{Binding Path=CountDown}" x:Name="lblTime"></Label>
                     <iconPacks:PackIconBootstrapIcons Kind="{x:Static utilities:Icons.Play}" x:Name="icnPlay"/>
                 </StackPanel>
             </Grid>

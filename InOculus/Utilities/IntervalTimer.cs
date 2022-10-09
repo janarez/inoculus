@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using static System.Threading.Thread;
 using System.Timers;
 
 namespace InOculus.Utilities
@@ -10,31 +8,18 @@ namespace InOculus.Utilities
     {
         private readonly Timer timer = new Timer(AppPreferences.IntervalTimerSpeed);
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private TimeSpan _countDown = UserPreferences.FocusInterval;
-        private TimeSpan countDown
+        private DisplayedTimeSpan countDown = UserPreferences.FocusInterval;
+        public DisplayedTimeSpan CountDown
         {
-            get => _countDown;
+            get => countDown;
             set
             {
-                _countDown = value;
-                if (_countDown.Milliseconds == 0)
-                {
-                    CountDownString = $"{(int)_countDown.TotalMinutes} m {_countDown.Seconds} s";
-                }
+                countDown = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(CountDown)));
             }
         }
-        private string countDownString;
-        public string CountDownString
-        {
-            get => countDownString;
-            private set
-            {
-                countDownString = value;
-                PropertyChanged(this, new PropertyChangedEventArgs(nameof(CountDownString)));
-            }
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
 
         public IntervalTimer()
         {
@@ -43,12 +28,12 @@ namespace InOculus.Utilities
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            countDown += TimeSpan.FromSeconds(-AppPreferences.IntervalTimerSpeed / 1000);
+            CountDown += TimeSpan.FromSeconds(-AppPreferences.IntervalTimerSpeed / 1000);
         }
 
         public void Start()
         {
-            countDown = UserPreferences.FocusInterval;
+            CountDown = UserPreferences.FocusInterval;
             timer.Start();
         }
 
@@ -57,4 +42,30 @@ namespace InOculus.Utilities
             timer.Stop();
         }
     }
+
+    class DisplayedTimeSpan
+    {
+        public DisplayedTimeSpan(int minutes, int seconds)
+        {
+            TimeSpan = new TimeSpan(hours: 0, minutes: minutes, seconds: seconds);
+        }
+        public DisplayedTimeSpan(TimeSpan t)
+        {
+            TimeSpan = t;
+        }
+
+        public TimeSpan TimeSpan;
+
+        public override string ToString()
+        {
+            return $"{(int)TimeSpan.TotalMinutes} m {TimeSpan.Seconds} s";
+        }
+
+        public static DisplayedTimeSpan operator +(DisplayedTimeSpan t1, TimeSpan t2)
+        {
+            return new DisplayedTimeSpan(t1.TimeSpan + t2);
+        }
+
+    }
+
 }

@@ -1,11 +1,8 @@
 ﻿using InOculus.Utilities;
+using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using Windows.UI.ViewManagement;
-using System.Timers;
-using System.ComponentModel;
-using System;
 
 namespace InOculus
 {
@@ -16,8 +13,8 @@ namespace InOculus
     {
         private readonly IntervalTimer IntervalTimer = new IntervalTimer();
         private readonly CountDownCircle CountDownCircle = new CountDownCircle();
-        
-        private readonly Timer focusTimer = new Timer(UserPreferences.FocusInterval.TotalMilliseconds);
+
+        private readonly Timer focusTimer = new Timer(UserPreferences.FocusInterval.TimeSpan.TotalMilliseconds);
         private readonly Timer breakTimer = new Timer(UserPreferences.BreakInterval.TotalMilliseconds);
 
         private bool focusOn = false;
@@ -30,7 +27,7 @@ namespace InOculus
             lblTime.DataContext = IntervalTimer;
             arcCountDown.DataContext = CountDownCircle;
 
-            focusTimer.Elapsed += FocusTimer_Elapsed; 
+            focusTimer.Elapsed += FocusTimer_Elapsed;
             breakTimer.Elapsed += BreakTimer_Elapsed;
         }
 
@@ -53,7 +50,7 @@ namespace InOculus
         }
 
         private void BtnStart_Click(object sender, RoutedEventArgs e)
-        {   
+        {
             // Stop.
             if (focusOn)
             {
@@ -74,6 +71,8 @@ namespace InOculus
         {
             StopFocusing();
             breakTimer.Start();
+            var breakWindow = new BreakWindow();
+            breakWindow.Show();
         }
 
         private void BreakTimer_Elapsed(object sender, ElapsedEventArgs e)
