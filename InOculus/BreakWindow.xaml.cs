@@ -19,27 +19,40 @@ namespace InOculus
     /// </summary>
     public partial class BreakWindow : Window
     {
-        private readonly IntervalTimer IntervalTimer = new IntervalTimer(UserPreferences.FocusInterval);
+        private readonly IntervalTimer intervalTimer = new IntervalTimer(UserPreferences.FocusInterval);
+
+        public event EventHandler Escaped;
 
         public BreakWindow()
         {
             InitializeComponent();
-            lblTime.DataContext = IntervalTimer;
-            IntervalTimer.Start();
+            lblTime.DataContext = intervalTimer;
         }
 
         private void WndBreak_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == (Key)Properties.Settings.Default.BreakWindowCloseKey)
             {
-                Close();
+                Escaped(sender, e);
             }
         }
 
         protected override void OnClosed(EventArgs e)
         {
-            IntervalTimer.Close();
+            intervalTimer.Close();
             base.OnClosed(e);
+        }
+
+        public void StopAndHide()
+        {
+            intervalTimer.Stop();
+            Hide();
+        }
+
+        public void StartAndShow()
+        {
+            intervalTimer.Start();
+            Show();
         }
     }
 }

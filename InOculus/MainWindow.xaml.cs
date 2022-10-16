@@ -14,6 +14,7 @@ namespace InOculus
     {
         private readonly IntervalTimer IntervalTimer = new IntervalTimer(UserPreferences.FocusInterval);
         private readonly CountDownCircle CountDownCircle = new CountDownCircle();
+        private readonly BreakWindow breakWindow = new BreakWindow();
 
         private readonly Timer focusTimer = new Timer(UserPreferences.FocusInterval.TimeSpan.TotalMilliseconds);
         private readonly Timer breakTimer = new Timer(UserPreferences.BreakInterval.TimeSpan.TotalMilliseconds);
@@ -30,6 +31,7 @@ namespace InOculus
 
             focusTimer.Elapsed += FocusTimer_Elapsed;
             breakTimer.Elapsed += BreakTimer_Elapsed;
+            breakWindow.Escaped += BreakTimer_Elapsed;
         }
 
         private void InitializeColorTheme()
@@ -72,12 +74,12 @@ namespace InOculus
         {
             StopFocusing();
             breakTimer.Start();
-            var breakWindow = new BreakWindow();
-            breakWindow.Show();
+            Dispatcher.Invoke(() => breakWindow.StartAndShow());
         }
 
-        private void BreakTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private void BreakTimer_Elapsed(object sender, EventArgs e)
         {
+            Dispatcher.Invoke(() => breakWindow.StopAndHide());
             breakTimer.Stop();
             StartFocusing();
         }
@@ -100,8 +102,7 @@ namespace InOculus
 
         private void BtnSettings_Click(object sender, RoutedEventArgs e)
         {
-            var breakWindow = new BreakWindow();
-            breakWindow.Show();
+            return;
         }
 
         protected override void OnClosed(EventArgs e)
