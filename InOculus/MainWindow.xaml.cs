@@ -41,18 +41,12 @@ namespace InOculus
         {
             var settings = new UISettings();
             var accent = settings.GetColorValue(UIColorType.Accent);
+            var lightAccent = settings.GetColorValue(UIColorType.AccentLight2);
             var background = settings.GetColorValue(UIColorType.Background);
 
-            var accentColor = Color.FromArgb(accent.A, accent.R, accent.G, accent.B);
-            var accentBrush = new SolidColorBrush(accentColor);
-            // TODO: Alpha not working?
-            var backgroundColor = Color.FromArgb(125, background.R, background.G, background.B);
-            var backgroundBrush = new SolidColorBrush(backgroundColor);
-
-            btnStart.Background = accentBrush;
-            btnSettings.Foreground = accentBrush;
-            btnStats.Foreground = accentBrush;
-            Background = backgroundBrush;
+            Resources.Add("AccentBrush", new SolidColorBrush(Color.FromArgb(accent.A, accent.R, accent.G, accent.B)));
+            Resources.Add("LightAccentBrush", new SolidColorBrush(Color.FromArgb(lightAccent.A, lightAccent.R, lightAccent.G, lightAccent.B)));
+            Background = new SolidColorBrush(Color.FromArgb(125, background.R, background.G, background.B));
         }
 
         private void BtnStart_Click(object sender, RoutedEventArgs e)

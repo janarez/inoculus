@@ -27,14 +27,15 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Background="Transparent" BorderThickness="0" x:Name="btnStats">
+            <Button Foreground="{DynamicResource ResourceKey=AccentBrush}" Background="Transparent" BorderThickness="0" x:Name="btnStats">
                 <iconPacks:BootstrapIcons Kind="{x:Static utilities:Icons.Stats}"/>
             </Button>
-            <Button Grid.Column="2" Click="BtnSettings_Click" Background="Transparent" BorderThickness="0" x:Name="btnSettings">
+            <Button Grid.Column="2" Click="BtnSettings_Click" 
+                    Foreground="{DynamicResource ResourceKey=AccentBrush}" Background="Transparent" BorderThickness="0" x:Name="btnSettings">
                 <iconPacks:BootstrapIcons Kind="{x:Static utilities:Icons.Settings}"/>
             </Button>
         </Grid>
-        <Button Grid.Row="1" Click="BtnStart_Click" BorderThickness="{x:Static utilities:AppPreferences.BorderThickness}"  
+        <Button Grid.Row="1" Click="BtnStart_Click" BorderThickness="{x:Static utilities:AppPreferences.BorderThickness}" Background="{DynamicResource ResourceKey=LightAccentBrush}"
                 Height="{x:Static utilities:AppPreferences.CircleDiameter}" 
                 Width="{x:Static utilities:AppPreferences.CircleDiameter}" x:Name="btnStart">
             <Button.Resources>
@@ -43,7 +44,7 @@
                 </Style>
             </Button.Resources>
             <Grid Margin="{x:Static utilities:AppPreferences.NegBorderThickness}" >
-                <Path Visibility="Hidden" Stroke="Red" StrokeThickness="{x:Static utilities:AppPreferences.CircleThickness}"
+                <Path Visibility="Hidden" StrokeThickness="{x:Static utilities:AppPreferences.CircleThickness}" Stroke="{DynamicResource ResourceKey=AccentBrush}"
                       Height="{x:Static utilities:AppPreferences.CircleDiameter}"  
                       Width="{x:Static utilities:AppPreferences.CircleDiameter}" x:Name="arcCountDown">
                     <Path.Data>
