@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="MahApps.Metro.IconPacks.BootstrapIcons" Version="4.11.0" />
     <PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.19041.2" />
+    <PackageReference Include="WpfScreenHelper" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>

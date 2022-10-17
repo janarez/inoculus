@@ -19,13 +19,17 @@ namespace InOculus
     /// </summary>
     public partial class BreakWindow : Window
     {
-        private readonly IntervalTimer intervalTimer = new IntervalTimer(UserPreferences.FocusInterval);
+        private readonly IntervalTimer intervalTimer = new IntervalTimer(UserPreferences.BreakInterval);
 
         public event EventHandler Escaped;
 
-        public BreakWindow()
+        public BreakWindow(Rect wpfBounds)
         {
             InitializeComponent();
+            Top = wpfBounds.Top;
+            Left = wpfBounds.Left;
+            Width = wpfBounds.Width;
+            Height = wpfBounds.Height;
             lblTime.DataContext = intervalTimer;
         }
 
@@ -53,6 +57,12 @@ namespace InOculus
         {
             intervalTimer.Start();
             Show();
+        }
+
+        private void WndBreak_Loaded(object sender, RoutedEventArgs e)
+        {   
+            // Necessary to call after window is loaded, otherwise it is maximized on primary monitor.
+            WindowState = WindowState.Maximized;
         }
     }
 }

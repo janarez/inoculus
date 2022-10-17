@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InOculus"
         mc:Ignorable="d"
-        Title="BreakWindow" WindowState="Maximized" WindowStyle="None" Background="Black" Opacity="0.55"
-        KeyDown="WndBreak_KeyDown" x:Name="wndBreak">
+        Title="BreakWindow" WindowStyle="None" Background="Black" Opacity="0.55"
+        KeyDown="WndBreak_KeyDown" Loaded="WndBreak_Loaded" x:Name="wndBreak">
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
         <Label Foreground="#FF229D5C" FontSize="42" Content="{Binding Path=CountDown}" x:Name="lblTime"></Label>
         <TextBlock Foreground="#FF229D5C" FontSize="42">Pres ESC to go back</TextBlock>
     </Grid>
 </Window>
+
