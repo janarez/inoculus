@@ -19,18 +19,25 @@
         - Windows WinRT API (Microsoft.Windows.SDK.Contracts)
     -->
     <Window.Resources>
-        <ControlTemplate x:Key="countDownButton" TargetType="Button">
-            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
-                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" 
+        <Style x:Key="countDownButton" TargetType="Button">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" 
                                   RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-            </Border>
-            <ControlTemplate.Triggers>
-                <Trigger Property="Button.IsMouseOver" Value="true">
-                    <Setter Property="Border.BorderBrush" Value="{DynamicResource ResourceKey=LightAccentBrush}"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsMouseOver" Value="true">
+                                <Setter Property="Border.BorderBrush" Value="{DynamicResource ResourceKey=LightAccentBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="topBarButton"  TargetType="{x:Type Button}">
             <Setter Property="Foreground" Value="{DynamicResource ResourceKey=AccentBrush}"/>
             <Setter Property="Template">
@@ -79,7 +86,7 @@
         <Button Grid.Row="1" Click="BtnStart_Click" BorderThickness="{x:Static utilities:AppPreferences.BorderThickness}" Background="{DynamicResource ResourceKey=LightAccentBrush}"
                 Height="{x:Static utilities:AppPreferences.CircleDiameter}"
                 Width="{x:Static utilities:AppPreferences.CircleDiameter}"
-                Template="{StaticResource countDownButton}"
+                Style="{StaticResource countDownButton}"
                 x:Name="btnStart">
             <Button.Resources>
                 <Style TargetType="Border">
