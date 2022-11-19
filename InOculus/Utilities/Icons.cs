@@ -9,5 +9,7 @@ namespace InOculus.Utilities
         public const PackIconBootstrapIconsKind Stop = StopFill;
         public const PackIconBootstrapIconsKind Settings = GearFill;
         public const PackIconBootstrapIconsKind Stats = BarChartLineFill;
+        public const PackIconBootstrapIconsKind Close = X;
+        public const PackIconBootstrapIconsKind Minimize = Dash;
     }
 }

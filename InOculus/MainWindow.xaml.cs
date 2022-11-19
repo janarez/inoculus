@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using Windows.UI.ViewManagement;
 using WpfScreenHelper;
@@ -46,7 +47,7 @@ namespace InOculus
 
             Resources.Add("AccentBrush", new SolidColorBrush(Color.FromArgb(accent.A, accent.R, accent.G, accent.B)));
             Resources.Add("LightAccentBrush", new SolidColorBrush(Color.FromArgb(lightAccent.A, lightAccent.R, lightAccent.G, lightAccent.B)));
-            Background = new SolidColorBrush(Color.FromArgb(125, background.R, background.G, background.B));
+            Background = new SolidColorBrush(Color.FromArgb(200, background.R, background.G, background.B));
         }
 
         private void BtnStart_Click(object sender, RoutedEventArgs e)
@@ -97,9 +98,24 @@ namespace InOculus
             focusOn = true;
         }
 
+        private void BtnStats_Click(object sender, RoutedEventArgs e)
+        {
+            return;
+        }
+
         private void BtnSettings_Click(object sender, RoutedEventArgs e)
         {
             return;
+        }
+
+        private void BtnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
 
         protected override void OnClosed(EventArgs e)
@@ -109,6 +125,12 @@ namespace InOculus
             focusTimer.Close();
             breakTimer.Close();
             base.OnClosed(e);
+        }
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            this.DragMove();
         }
     }
 }
