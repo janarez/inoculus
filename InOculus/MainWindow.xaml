@@ -114,8 +114,8 @@
                     </Path.Data>
                 </Path>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Label Content="{Binding Path=CountDown}" x:Name="lblTime"></Label>
-                    <iconPacks:PackIconBootstrapIcons Kind="{x:Static utilities:Icons.Play}" x:Name="icnPlay"/>
+                    <Label Content="{Binding Path=CountDown}" x:Name="lblTime" d:Content="00:05" FontSize="24"></Label>
+                    <iconPacks:PackIconBootstrapIcons Kind="{x:Static utilities:Icons.Play}" x:Name="icnPlay" HorizontalAlignment="Stretch"/>
                 </StackPanel>
             </Grid>
         </Button>
