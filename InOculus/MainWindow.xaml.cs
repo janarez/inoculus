@@ -50,6 +50,7 @@ namespace InOculus
             Background = new SolidColorBrush(Color.FromArgb(200, background.R, background.G, background.B));
         }
 
+        #region CountDownTimer
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
             // Stop.
@@ -97,6 +98,13 @@ namespace InOculus
             CountDownCircle.Start();
             focusOn = true;
         }
+        #endregion
+
+        #region TopBarButtons
+        private void BtnInfo_Click(object sender, RoutedEventArgs e)
+        {
+            return;
+        }
 
         private void BtnStats_Click(object sender, RoutedEventArgs e)
         {
@@ -117,6 +125,7 @@ namespace InOculus
         {
             Close();
         }
+        #endregion
 
         protected override void OnClosed(EventArgs e)
         {

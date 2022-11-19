@@ -11,5 +11,6 @@ namespace InOculus.Utilities
         public const PackIconBootstrapIconsKind Stats = BarChartLineFill;
         public const PackIconBootstrapIconsKind Close = X;
         public const PackIconBootstrapIconsKind Minimize = Dash;
+        public const PackIconBootstrapIconsKind Info = InfoSquareFill;
     }
 }

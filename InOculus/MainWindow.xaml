@@ -50,43 +50,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="1"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
-                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -97,17 +60,20 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Click="BtnStats_Click" x:Name="btnStats" Style="{StaticResource topBarButton}" 
+            <Button Click="BtnInfo_Click" x:Name="btnInfo" Style="{StaticResource topBarButton}" 
+                    Content="{iconPacks:BootstrapIcons Kind={x:Static utilities:Icons.Info}}"/>
+            <Button Grid.Column="1" Click="BtnStats_Click" x:Name="btnStats" Style="{StaticResource topBarButton}" 
                     Content="{iconPacks:BootstrapIcons Kind={x:Static utilities:Icons.Stats}}"/>
-            <Button Grid.Column="1" Click="BtnSettings_Click" x:Name="btnSettings" Style="{StaticResource topBarButton}" 
+            <Button Grid.Column="2" Click="BtnSettings_Click" x:Name="btnSettings" Style="{StaticResource topBarButton}" 
                     Content="{iconPacks:BootstrapIcons Kind={x:Static utilities:Icons.Settings}}"/>
-            <Button Grid.Column="3" Click="BtnMinimize_Click" x:Name="btnMinimize" Style="{StaticResource topBarButton}" 
+            <Button Grid.Column="4" Click="BtnMinimize_Click" x:Name="btnMinimize" Style="{StaticResource topBarButton}" 
                     Content="{iconPacks:BootstrapIcons Kind={x:Static utilities:Icons.Minimize}}"/>
-            <Button Grid.Column="4" Click="BtnClose_Click" x:Name="btnClose" Style="{StaticResource topBarButton}" 
+            <Button Grid.Column="5" Click="BtnClose_Click" x:Name="btnClose" Style="{StaticResource topBarButton}" 
                     Content="{iconPacks:BootstrapIcons Kind={x:Static utilities:Icons.Close}}"/>
         </Grid>
         <Button Grid.Row="1" Click="BtnStart_Click" BorderThickness="{x:Static utilities:AppPreferences.BorderThickness}" Background="{DynamicResource ResourceKey=LightAccentBrush}"
