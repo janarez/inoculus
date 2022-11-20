@@ -42,6 +42,7 @@ namespace InOculus.Utilities
 
         public void Stop()
         {
+            CountDown = countDownInterval;
             timer.Stop();
         }
 
