@@ -18,6 +18,7 @@ namespace InOculus
     {
         private readonly IntervalTimer IntervalTimer = new IntervalTimer(UserPreferences.FocusInterval);
         private readonly CountDownCircle CountDownCircle = new CountDownCircle();
+        // One break window / monitor.
         private readonly List<BreakWindow> breakWindows = new List<BreakWindow>(Screen.AllScreens.Select((Screen s) => new BreakWindow(s.WpfBounds)));
 
         private readonly Timer focusTimer = new Timer(UserPreferences.FocusInterval.TimeSpan.TotalMilliseconds);
@@ -123,7 +124,7 @@ namespace InOculus
 
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            Application.Current.Shutdown();
         }
         #endregion
 
