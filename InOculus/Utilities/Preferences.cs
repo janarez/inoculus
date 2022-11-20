@@ -5,8 +5,8 @@ namespace InOculus.Utilities
 {
     class UserPreferences
     {
-        public static DisplayedTimeSpan FocusInterval = new DisplayedTimeSpan(minutes: 0, seconds: 10);  //new TimeSpan(hours: 0, minutes: Properties.Settings.Default.FocusInterval, seconds: 0);
-        public static DisplayedTimeSpan BreakInterval = new DisplayedTimeSpan(minutes: 0, seconds: 8);  //new TimeSpan(hours: 0, minutes: 0, seconds:  Properties.Settings.Default.BreakInterval);
+        public static DisplayedTimeSpan FocusInterval = new DisplayedTimeSpan(minutes: 0, seconds: 10);  //new DisplayedTimeSpan(minutes: Properties.Settings.Default.FocusInterval, seconds: 0);
+        public static DisplayedTimeSpan BreakInterval = new DisplayedTimeSpan(minutes: 0, seconds: 40);  //new DisplayedTimeSpan(minutes: 0, seconds:  Properties.Settings.Default.BreakInterval);
     }
 
     class AppPreferences
@@ -23,6 +23,7 @@ namespace InOculus.Utilities
         // Helper variables for XAML binding.
         public static double CircleRadius = CircleDiameter / 2;
         public static double CircleHalfThickness = CircleThickness / 2;
+        public static double CountDownDiameter = CircleDiameter + 2;
         public static Thickness BorderThickness = new Thickness(CircleThickness);
         public static Thickness NegBorderThickness = new Thickness(-CircleThickness);
         public static Point CircleStartPoint = new Point(CircleRadius, CircleHalfThickness);

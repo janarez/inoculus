@@ -21,6 +21,7 @@
     <Window.Resources>
         <Style x:Key="countDownButton" TargetType="Button">
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=GrayRadialBorderBrush}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -31,7 +32,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="Button.IsMouseOver" Value="true">
-                                <Setter Property="Border.BorderBrush" Value="{DynamicResource ResourceKey=LightAccentBrush}"/>
+                                <Setter Property="Border.BorderBrush" Value="{DynamicResource ResourceKey=LightAccentRadialBorderBrush}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -83,9 +84,10 @@
             <Button Grid.Column="5" Click="BtnClose_Click" x:Name="btnClose" Style="{StaticResource topBarButton}" 
                     Content="{iconPacks:BootstrapIcons Kind={x:Static utilities:Icons.Close}}"/>
         </Grid>
-        <Button Grid.Row="1" Click="BtnStart_Click" BorderThickness="{x:Static utilities:AppPreferences.BorderThickness}" Background="{DynamicResource ResourceKey=LightAccentBrush}"
-                Height="{x:Static utilities:AppPreferences.CircleDiameter}"
-                Width="{x:Static utilities:AppPreferences.CircleDiameter}"
+        <Button Grid.Row="1" Click="BtnStart_Click" BorderThickness="{x:Static utilities:AppPreferences.BorderThickness}"
+                Background="{DynamicResource ResourceKey=LightAccentBrush}"
+                Height="{x:Static utilities:AppPreferences.CountDownDiameter}"
+                Width="{x:Static utilities:AppPreferences.CountDownDiameter}"
                 Style="{StaticResource countDownButton}"
                 x:Name="btnStart">
             <Button.Resources>
@@ -115,7 +117,7 @@
                 </Path>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Label Content="{Binding Path=CountDown}" x:Name="lblTime" d:Content="00:05" FontSize="24" FontFamily="./Utilities/Fonts/#DSEG7 Classic"></Label>
-                    <iconPacks:PackIconBootstrapIcons Kind="{x:Static utilities:Icons.Play}" x:Name="icnPlay" HorizontalAlignment="Stretch"/>
+                    <iconPacks:PackIconBootstrapIcons Kind="{x:Static utilities:Icons.Play}" x:Name="icnPlay" HorizontalAlignment="Stretch" Margin="5" Width="20" Height="20"/>
                 </StackPanel>
             </Grid>
         </Button>

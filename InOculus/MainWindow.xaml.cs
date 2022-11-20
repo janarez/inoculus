@@ -46,9 +46,23 @@ namespace InOculus
             var lightAccent = settings.GetColorValue(UIColorType.AccentLight2);
             var background = settings.GetColorValue(UIColorType.Background);
 
-            Resources.Add("AccentBrush", new SolidColorBrush(Color.FromArgb(accent.A, accent.R, accent.G, accent.B)));
-            Resources.Add("LightAccentBrush", new SolidColorBrush(Color.FromArgb(lightAccent.A, lightAccent.R, lightAccent.G, lightAccent.B)));
-            Background = new SolidColorBrush(Color.FromArgb(200, background.R, background.G, background.B));
+            Color accentColor = Color.FromArgb(accent.A, accent.R, accent.G, accent.B);
+            Color lightAccentColor = Color.FromArgb(lightAccent.A, lightAccent.R, lightAccent.G, lightAccent.B);
+            Color backgroundColor = Color.FromArgb(200, background.R, background.G, background.B);
+            Color grayColor = Color.FromRgb(73, 80, 87); // Bootstrap's v5.2 `gray-700`.
+
+            var gsc = (Color borderColor) => new GradientStopCollection() { new(borderColor, 0.0), new(borderColor, 0.97), new(backgroundColor, 1.0) };
+            RadialGradientBrush grayRadialBorder = new RadialGradientBrush(gsc(grayColor));
+            RadialGradientBrush lightAccentRadialBorder = new RadialGradientBrush(gsc(lightAccentColor));
+            grayRadialBorder.Freeze();
+            lightAccentRadialBorder.Freeze();
+
+            Resources.Add("GrayRadialBorderBrush", grayRadialBorder);
+            Resources.Add("LightAccentRadialBorderBrush", lightAccentRadialBorder);
+
+            Resources.Add("AccentBrush", new SolidColorBrush(accentColor));
+            Resources.Add("LightAccentBrush", new SolidColorBrush(lightAccentColor));
+            Background = new SolidColorBrush(backgroundColor);
         }
 
         #region CountDownTimer
