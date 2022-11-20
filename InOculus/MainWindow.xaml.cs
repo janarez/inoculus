@@ -60,9 +60,9 @@ namespace InOculus
             Resources.Add("GrayRadialBorderBrush", grayRadialBorder);
             Resources.Add("LightAccentRadialBorderBrush", lightAccentRadialBorder);
 
-            Resources.Add("AccentBrush", new SolidColorBrush(accentColor));
-            Resources.Add("LightAccentBrush", new SolidColorBrush(lightAccentColor));
-            Background = new SolidColorBrush(backgroundColor);
+            Application.Current.Resources.Add("AccentBrush", new SolidColorBrush(accentColor));
+            Application.Current.Resources.Add("LightAccentBrush", new SolidColorBrush(lightAccentColor));
+            Application.Current.Resources.Add("BackgroundBrush", new SolidColorBrush(backgroundColor));
         }
 
         #region CountDownTimer

@@ -5,11 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InOculus"
         mc:Ignorable="d"
-        Title="BreakWindow" WindowStyle="None" Background="Black" Opacity="0.55"
-        KeyDown="WndBreak_KeyDown" Loaded="WndBreak_Loaded" x:Name="wndBreak">
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Label Foreground="#FF229D5C" FontSize="42" Content="{Binding Path=CountDown}" x:Name="lblTime"></Label>
-        <TextBlock Foreground="#FF229D5C" FontSize="42">Pres ESC to go back</TextBlock>
-    </Grid>
+        Title="BreakWindow" 
+        WindowStyle="None" AllowsTransparency="True" Background="{DynamicResource ResourceKey=BackgroundBrush}"
+        KeyDown="WndBreak_KeyDown" Loaded="WndBreak_Loaded" 
+        x:Name="wndBreak">
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Label Content="{Binding Path=CountDown}"  d:Content="00:05" 
+               HorizontalAlignment="Center" Margin="10"
+               FontSize="48" FontFamily="./Utilities/Fonts/#DSEG7 Classic"
+               Foreground="{DynamicResource ResourceKey=AccentBrush}"
+               x:Name="lblTime"></Label>
+        <TextBlock Foreground="{DynamicResource ResourceKey=AccentBrush}" FontSize="40" x:Name="txtInstructions"></TextBlock>
+    </StackPanel>
 </Window>
 

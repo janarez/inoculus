@@ -9,8 +9,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="InOculus" 
-        AllowsTransparency="True"
-        WindowStyle="None"
+        AllowsTransparency="True" WindowStyle="None" Background="{DynamicResource ResourceKey=BackgroundBrush}"
         Height="{x:Static utilities:AppPreferences.WindowHeight}" 
         Width="{x:Static utilities:AppPreferences.WindowWidth}" 
         ResizeMode="NoResize" x:Name="wndMain">
