@@ -51,6 +51,7 @@ namespace InOculus
             Color backgroundColor = Color.FromArgb(200, background.R, background.G, background.B);
             Color grayColor = Color.FromRgb(73, 80, 87); // Bootstrap's v5.2 `gray-700`.
 
+            // Radial brushes for countdown border.
             var gsc = (Color borderColor) => new GradientStopCollection() { new(borderColor, 0.0), new(borderColor, 0.97), new(backgroundColor, 1.0) };
             RadialGradientBrush grayRadialBorder = new RadialGradientBrush(gsc(grayColor));
             RadialGradientBrush lightAccentRadialBorder = new RadialGradientBrush(gsc(lightAccentColor));
@@ -60,6 +61,7 @@ namespace InOculus
             Resources.Add("GrayRadialBorderBrush", grayRadialBorder);
             Resources.Add("LightAccentRadialBorderBrush", lightAccentRadialBorder);
 
+            // These are also used in `BreakWindow`.
             Application.Current.Resources.Add("AccentBrush", new SolidColorBrush(accentColor));
             Application.Current.Resources.Add("LightAccentBrush", new SolidColorBrush(lightAccentColor));
             Application.Current.Resources.Add("BackgroundBrush", new SolidColorBrush(backgroundColor));

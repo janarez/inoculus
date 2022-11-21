@@ -4,12 +4,19 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Properties\InOculus.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Resource Include="Utilities\Fonts\**\*"/>
+    <Resource Include="Utilities\Fonts\**\*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Properties\InOculus.ico" CopyToOutputDirectory="PreserveNewest">
+      <Link>%(Filename)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
+  
   <ItemGroup>
     <PackageReference Include="MahApps.Metro.IconPacks.BootstrapIcons" Version="4.11.0" />
     <PackageReference Include="WpfScreenHelper" Version="2.1.0" />
