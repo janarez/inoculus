@@ -14,14 +14,14 @@
     <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Application Files\InOculus_0_1_0_0\InOculus.dll.manifest" size="7580">
+    <dependentAssembly dependencyType="install" codebase="Application Files\InOculus_0_1_0_0\InOculus.dll.manifest" size="7166">
       <assemblyIdentity name="InOculus.exe" version="0.1.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ziqpjzivKWu5UII4gvgG/WsKr+Tw3a9KegMZkebwYOw=</dsig:DigestValue>
+        <dsig:DigestValue>KB8KGOChxBR+0IiRtAjyzdEQ9Sxw7iaiPFgTX+KpMRc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
