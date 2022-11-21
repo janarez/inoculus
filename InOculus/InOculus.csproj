@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Properties\InOculus.ico</ApplicationIcon>
+    <ApplicationIcon>InOculus.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,9 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Properties\InOculus.ico" CopyToOutputDirectory="PreserveNewest">
-      <Link>%(Filename)%(Extension)</Link>
-    </Content>
+    <Content Include="InOculus.ico" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   
   <ItemGroup>
