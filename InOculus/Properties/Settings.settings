@@ -6,7 +6,7 @@
       <Value Profile="(Default)">30</Value>
     </Setting>
     <Setting Name="BreakInterval" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
+      <Value Profile="(Default)">60</Value>
     </Setting>
     <Setting Name="BreakWindowCloseKey" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">13</Value>
