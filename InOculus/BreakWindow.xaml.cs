@@ -58,6 +58,7 @@ namespace InOculus
         {
             intervalTimer.Start();
             Show();
+            Activate();
         }
 
         private void WndBreak_Loaded(object sender, RoutedEventArgs e)
