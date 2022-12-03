@@ -28,6 +28,9 @@ namespace InOculus
 
         public MainWindow()
         {
+            // Otherwise `BreakWindow` from the `breakWindows` attribute will be main.
+            Application.Current.MainWindow = this;
+
             InitializeComponent();
             InitializeColorTheme();
 
@@ -143,6 +146,13 @@ namespace InOculus
             Application.Current.Shutdown();
         }
         #endregion
+
+        public void ToForeground()
+        {
+            WindowState = WindowState.Normal;
+            Activate();
+            Focus();
+        }
 
         protected override void OnClosed(EventArgs e)
         {

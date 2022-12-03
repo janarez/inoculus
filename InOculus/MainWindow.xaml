@@ -8,7 +8,7 @@
         xmlns:utilities="clr-namespace:InOculus.Utilities"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="InOculus" 
+        Title="{x:Static utilities:AppPreferences.AppName}" 
         AllowsTransparency="True" WindowStyle="None" Background="{DynamicResource ResourceKey=BackgroundBrush}"
         Height="{x:Static utilities:AppPreferences.WindowHeight}" 
         Width="{x:Static utilities:AppPreferences.WindowWidth}" 
