@@ -12,7 +12,7 @@
         AllowsTransparency="True" WindowStyle="None" Background="{DynamicResource ResourceKey=BackgroundBrush}"
         Height="{x:Static utilities:AppPreferences.WindowHeight}" 
         Width="{x:Static utilities:AppPreferences.WindowWidth}" 
-        ResizeMode="NoResize" x:Name="wndMain">
+        ResizeMode="CanMinimize" x:Name="wndMain">
     <!-- Extra packages: 
         - Bootstrap Icons (https://github.com/MahApps/MahApps.Metro.IconPacks)
         - Windows WinRT API (Microsoft.Windows.SDK.Contracts)
