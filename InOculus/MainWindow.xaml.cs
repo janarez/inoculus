@@ -133,7 +133,8 @@ namespace InOculus
 
         private void BtnSettings_Click(object sender, RoutedEventArgs e)
         {
-            return;
+            var settings = new SettingsWindow();
+            Dispatcher.Invoke(() => settings.Show());
         }
 
         private void BtnMinimize_Click(object sender, RoutedEventArgs e)
