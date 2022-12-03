@@ -67,7 +67,7 @@ namespace InOculus.Utilities
 
         public override string ToString()
         {
-            return $"{TimeSpan.Minutes:D2}:{TimeSpan.Seconds:D2}";
+            return $"{(int)TimeSpan.TotalMinutes:D2}:{TimeSpan.Seconds:D2}";
         }
 
         public static DisplayedTimeSpan operator +(DisplayedTimeSpan t1, TimeSpan t2)
