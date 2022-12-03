@@ -143,7 +143,7 @@ namespace InOculus
 
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            Close();
         }
         #endregion
 
@@ -156,11 +156,8 @@ namespace InOculus
 
         protected override void OnClosed(EventArgs e)
         {
-            IntervalTimer.Close();
-            CountDownCircle.Close();
-            focusTimer.Close();
-            breakTimer.Close();
             base.OnClosed(e);
+            Application.Current.Shutdown();
         }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)

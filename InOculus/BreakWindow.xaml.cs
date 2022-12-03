@@ -42,12 +42,6 @@ namespace InOculus
             }
         }
 
-        protected override void OnClosed(EventArgs e)
-        {
-            intervalTimer.Close();
-            base.OnClosed(e);
-        }
-
         public void StopAndHide()
         {
             intervalTimer.Stop();
