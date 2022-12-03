@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InOculus"
         mc:Ignorable="d"
-        Title="BreakWindow" 
-        WindowStyle="None" AllowsTransparency="True" Background="{DynamicResource ResourceKey=BackgroundBrush}"
+        Title="BreakWindow" ShowInTaskbar="False"
+        Topmost="True" WindowStyle="None" AllowsTransparency="True" Background="{DynamicResource ResourceKey=BackgroundBrush}"
         KeyDown="WndBreak_KeyDown" Loaded="WndBreak_Loaded" 
         x:Name="wndBreak">
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
