@@ -52,14 +52,15 @@ namespace InOculus
         {
             intervalTimer.Start();
             Show();
-            Activate();
-            Focus();
         }
 
         private void WndBreak_Loaded(object sender, RoutedEventArgs e)
         {   
             // Necessary to call after window is loaded, otherwise it is maximized on primary monitor.
             WindowState = WindowState.Maximized;
+            // Only focus once loaded.
+            Activate();
+            Focus();
         }
     }
 }
