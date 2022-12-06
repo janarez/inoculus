@@ -1,4 +1,7 @@
 ﻿using InOculus.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -13,22 +16,36 @@ namespace InOculus
         private Brush invalidSettingBrush = new SolidColorBrush(Color.FromRgb(234, 134, 143)); // Bootstrap's v5.2 `red-300`.
         private Brush validSettingBrush = new SolidColorBrush(Color.FromRgb(163, 207, 187)); // Bootstrap's v5.2 `green-200`.
 
+        // Validation settings.
+        // ====================
+        // Focus interval.
+        private const int minimumFocusIntervalMins = 1;
+        private const int maximumFocusIntervalMins = 99;
+        private readonly Func<bool> isFocusIntervalValid;
+        // Break interval.
+        private const int minimumBreakIntervalSeconds = 1;
+        private const int maximumBreakIntervalSeconds = 99 * 60;
+        private readonly Func<bool> isBreakIntervalValid;
+        // Break keybord key.
+        private readonly HashSet<int> allowedBreakKeyValues = Enum.GetValues<Key>().Select(x => (int)x).ToHashSet();
+        private Func<bool> isBreakKeyValid;
 
         public SettingsWindow()
         {
             InitializeComponent();
             Title = $"{AppPreferences.AppName} Settings";
 
+            // Initialize validators.
+            isFocusIntervalValid = () => validateInteger(txbFocus.Text, minAllowed: minimumFocusIntervalMins, maxAllowed: maximumFocusIntervalMins);
+            isBreakIntervalValid = () => validateInteger(txbBreak.Text, minAllowed: minimumBreakIntervalSeconds, maxAllowed: maximumBreakIntervalSeconds);
+            isBreakKeyValid = () => int.TryParse(txbBreakKey.Text, out int value) && allowedBreakKeyValues.Contains(value);
+
             // Show current settings.
             txbFocus.Text = Properties.Settings.Default.FocusInterval.ToString();
-            txbFocus.Background = validSettingBrush;
             txbBreak.Text = Properties.Settings.Default.BreakInterval.ToString();
-            txbBreak.Background = validSettingBrush;
             txbBreakKey.Text = Properties.Settings.Default.BreakWindowCloseKey.ToString();
-            txbBreakKey.Background = validSettingBrush;
             txtBreakKey.Text = ((Key)Properties.Settings.Default.BreakWindowCloseKey).ToString();
             ckbStartup.IsChecked = Properties.Settings.Default.RunOnStartup;
-            ckbStartup.Background = validSettingBrush;
         }
 
         private bool validateInteger(string stringValue, int minAllowed, int maxAllowed)
@@ -39,21 +56,21 @@ namespace InOculus
 
         private void txbFocus_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            txbFocus.Background = validateInteger(txbFocus.Text, minAllowed: 1, maxAllowed: 99) ? validSettingBrush : invalidSettingBrush;
+            txbFocus.Background = isFocusIntervalValid() ? validSettingBrush : invalidSettingBrush;
         }
 
         private void txbBreak_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            txbBreak.Background = validateInteger(txbBreak.Text, minAllowed: 1, maxAllowed: 99 * 60) ? validSettingBrush : invalidSettingBrush;
+            txbBreak.Background = isBreakIntervalValid() ? validSettingBrush : invalidSettingBrush;
         }
 
         private void txbBreakKey_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            var isValid = validateInteger(txbBreakKey.Text, minAllowed: 1, maxAllowed: 172);
+            var isValid = isBreakKeyValid();
             txbBreakKey.Background = isValid ? validSettingBrush : invalidSettingBrush;
             if (isValid)
             {
-                txtBreakKey.Text = ((Key)int.Parse(txbBreakKey.Text)).ToString();
+                txtBreakKey.Text = ((Key)int.Parse(txbBreakKey.Text)).ToString().ToUpper();
             }
             else
             {
@@ -63,7 +80,7 @@ namespace InOculus
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            var allValid = false;
+            var allValid = isFocusIntervalValid() && isBreakIntervalValid() && isBreakKeyValid();
             if (allValid)
             {
                 Properties.Settings.Default.FocusInterval = int.Parse(txbFocus.Text);

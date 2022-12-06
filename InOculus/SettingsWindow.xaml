@@ -27,15 +27,17 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Label Content="Length of focus interval (min)" Margin="10"></Label>
-            <TextBox Grid.Column="1" Margin="10" Width="40" TextChanged="txbFocus_TextChanged" x:Name="txbFocus"></TextBox>
+            <Label Content="Length of focus interval (int)" Margin="10"></Label>
+            <TextBox Grid.Column="1" Margin="10" Width="40" TextChanged="txbFocus_TextChanged" VerticalAlignment="Center" d:Text="30" Name="txbFocus"></TextBox>
+            <TextBlock Grid.Column="2" Margin="10" VerticalAlignment="Center">minutes</TextBlock>
 
-            <Label Grid.Row="1" Content="Length of break interval (s)" Margin="10"></Label>
-            <TextBox Grid.Row="1" Grid.Column="1" Margin="10" Width="40" TextChanged="txbBreak_TextChanged" x:Name="txbBreak"></TextBox>
+            <Label Grid.Row="1" Content="Length of break interval (int)" Margin="10"></Label>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="10" Width="40" TextChanged="txbBreak_TextChanged" VerticalAlignment="Center" d:Text="60" x:Name="txbBreak"></TextBox>
+            <TextBlock Grid.Row="1" Grid.Column="2" Margin="10" VerticalAlignment="Center">seconds</TextBlock>
 
             <Label Grid.Row="2" Content="Keyboard key to dismiss break window (`System.Windows.Input.Key` int value)" Margin="10"></Label>
-            <TextBox Grid.Row="2" Grid.Column="1" Margin="10" Width="40" TextChanged="txbBreakKey_TextChanged" x:Name="txbBreakKey"></TextBox>
-            <TextBlock Grid.Row="2" Grid.Column="2" Margin="10" x:Name="txtBreakKey"></TextBlock>
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="10" Width="40" TextChanged="txbBreakKey_TextChanged" VerticalAlignment="Center" d:Text="13" x:Name="txbBreakKey"></TextBox>
+            <TextBlock Grid.Row="2" Grid.Column="2" Margin="10" VerticalAlignment="Center" d:Text="ESC" x:Name="txtBreakKey"></TextBlock>
 
             <Label Grid.Row="3" Content="Run on startup" Margin="10"></Label>
             <CheckBox Grid.Row="3" Grid.Column="1" Margin="10" x:Name="ckbStartup"></CheckBox>
