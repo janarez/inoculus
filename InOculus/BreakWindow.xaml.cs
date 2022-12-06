@@ -31,7 +31,7 @@ namespace InOculus
             Width = wpfBounds.Width;
             Height = wpfBounds.Height;
             lblTime.DataContext = intervalTimer;
-            txtInstructions.Text = $"Press {((Key)Properties.Settings.Default.BreakWindowCloseKey).ToString().ToUpper()} to go back";
+            txtInstructions.Text = $"Press {((Key)Properties.Settings.Default.BreakWindowCloseKey).ToString().ToUpper()} to start over";
         }
 
         private void WndBreak_KeyDown(object sender, KeyEventArgs e)
