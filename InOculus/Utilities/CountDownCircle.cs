@@ -30,10 +30,10 @@ namespace InOculus.Utilities
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public CountDownCircle()
+        public CountDownCircle(double totalMiliseconds)
         {
             // Start at the top, then go clockwise every `seconds_per_step`.
-            angle_step = 2 * Math.PI / (UserPreferences.FocusInterval.TimeSpan.TotalMilliseconds / AppPreferences.CountDownCircleSpeed);
+            angle_step = 2 * Math.PI / (totalMiliseconds / AppPreferences.CountDownCircleSpeed);
 
             timer.Elapsed += Timer_Elapsed;
         }

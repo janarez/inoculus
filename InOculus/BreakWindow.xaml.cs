@@ -19,13 +19,15 @@ namespace InOculus
     /// </summary>
     public partial class BreakWindow : Window
     {
-        private readonly IntervalTimer intervalTimer = new IntervalTimer(UserPreferences.BreakInterval);
+        private readonly IntervalTimer intervalTimer;
 
         public event EventHandler Escaped;
 
-        public BreakWindow(Rect wpfBounds)
+        public BreakWindow(DisplayedTimeSpan breakInterval, Rect wpfBounds)
         {
             InitializeComponent();
+            intervalTimer = new IntervalTimer(breakInterval);
+
             Top = wpfBounds.Top;
             Left = wpfBounds.Left;
             Width = wpfBounds.Width;

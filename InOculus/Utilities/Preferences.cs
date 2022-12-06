@@ -3,17 +3,6 @@ using System.Windows;
 
 namespace InOculus.Utilities
 {
-    class UserPreferences
-    {
-#if DEBUG
-        public static DisplayedTimeSpan FocusInterval = new DisplayedTimeSpan(minutes: 0, seconds: 5);  
-        public static DisplayedTimeSpan BreakInterval = new DisplayedTimeSpan(minutes: 0, seconds: 10);
-#else
-        public static DisplayedTimeSpan FocusInterval = new DisplayedTimeSpan(minutes: Properties.Settings.Default.FocusInterval, seconds: 0);
-        public static DisplayedTimeSpan BreakInterval = new DisplayedTimeSpan(minutes: 0, seconds:  Properties.Settings.Default.BreakInterval);
-#endif
-    }
-
     class AppPreferences
     {
         public const string AppName = "InOculus";

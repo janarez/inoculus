@@ -52,7 +52,7 @@ namespace InOculus.Utilities
         }
     }
 
-    class DisplayedTimeSpan
+    public class DisplayedTimeSpan
     {
         public DisplayedTimeSpan(int minutes, int seconds)
         {

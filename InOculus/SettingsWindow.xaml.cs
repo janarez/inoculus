@@ -81,17 +81,19 @@ namespace InOculus
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             var allValid = isFocusIntervalValid() && isBreakIntervalValid() && isBreakKeyValid();
-            if (allValid)
-            {
-                Properties.Settings.Default.FocusInterval = int.Parse(txbFocus.Text);
-                Properties.Settings.Default.BreakInterval = int.Parse(txbBreak.Text);
-                Properties.Settings.Default.BreakWindowCloseKey = int.Parse(txbBreakKey.Text);
-                Properties.Settings.Default.RunOnStartup = (bool)ckbStartup.IsChecked;
-            }
-            else
+            if (!allValid)
             {
                 txtSave.Text = "Could not save invalid settings. Fix all with red background.";
+                return;
             }
+
+            // Save new settings.
+            Properties.Settings.Default.FocusInterval = int.Parse(txbFocus.Text);
+            Properties.Settings.Default.BreakInterval = int.Parse(txbBreak.Text);
+            Properties.Settings.Default.BreakWindowCloseKey = int.Parse(txbBreakKey.Text);
+            Properties.Settings.Default.RunOnStartup = (bool)ckbStartup.IsChecked;
+            DialogResult = true; // To tell main window that settings have changed.
+            Close();
         }
     }
 }
