@@ -18,7 +18,7 @@ namespace InOculus
     {
         private IntervalTimer IntervalTimer;
         private CountDownCircle CountDownCircle;
-       
+
         private Timer focusTimer;
         private Timer breakTimer;
 
@@ -68,7 +68,7 @@ namespace InOculus
             // Countdown circle animation.
             CountDownCircle = new CountDownCircle(focusInterval.TimeSpan.TotalMilliseconds);
             arcCountDown.DataContext = CountDownCircle;
-            
+
             // Time focus round in main window.
             focusTimer = new Timer(focusInterval.TimeSpan.TotalMilliseconds);
             focusTimer.Elapsed += FocusTimer_Elapsed;
@@ -102,7 +102,7 @@ namespace InOculus
             Application.Current.Resources.Add("BackgroundBrush", new SolidColorBrush(backgroundColor));
         }
 
-#region CountDownTimer
+        #region CountDownTimer
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
             // Stop.
@@ -125,7 +125,16 @@ namespace InOculus
         {
             StopFocusing();
             breakTimer.Start();
-            Dispatcher.Invoke(() => breakWindows.ForEach(w => w.StartAndShow()));
+            // First monitor will have keyboard focus.
+            Dispatcher.Invoke(() => breakWindows.First().StartShowAndFocus());
+            Dispatcher.Invoke(() =>
+            {
+                var bws = breakWindows.Skip(1);
+                foreach (BreakWindow bw in bws)
+                {
+                    bw.StartAndShow();
+                }
+            });
         }
 
         private void BreakTimer_Elapsed(object sender, EventArgs e)
@@ -150,9 +159,9 @@ namespace InOculus
             CountDownCircle.Start();
             focusOn = true;
         }
-#endregion
+        #endregion
 
-#region TopBarButtons
+        #region TopBarButtons
         private void BtnInfo_Click(object sender, RoutedEventArgs e)
         {
             return;
@@ -190,7 +199,7 @@ namespace InOculus
         {
             Close();
         }
-#endregion
+        #endregion
 
         public void ToForeground()
         {
