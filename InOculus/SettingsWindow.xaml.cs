@@ -96,5 +96,17 @@ namespace InOculus
             DialogResult = true; // To tell main window that settings have changed.
             Close();
         }
+
+        private void wndSettings_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                btnSave_Click(sender, e);
+            }
+            if (e.Key == Key.Escape)
+            {
+                Close();
+            }
+        }
     }
 }

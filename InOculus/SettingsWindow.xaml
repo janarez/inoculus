@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:InOculus"
         mc:Ignorable="d"
         d:DesignHeight="450" d:DesignWidth="800"
+        KeyDown="wndSettings_KeyDown"
         x:Name="wndSettings"
         >
     <Grid>
