@@ -42,6 +42,11 @@ namespace InOculus
 
                 thread.IsBackground = true;
                 thread.Start();
+                
+                // Assure ClickOnce does not override user settings to defaults.
+                InOculus.Properties.Settings.Default.Upgrade();
+                InOculus.Properties.Settings.Default.Save();
+
                 return;
             }
             // Do not open second instance, rather activate first.
