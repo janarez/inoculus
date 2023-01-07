@@ -69,7 +69,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>4Z2NSAxkNzOKAFosn8KKGsiKU6wsbmVzp6/HuqcT5nY=</dsig:DigestValue>
+      <dsig:DigestValue>EWdgiBS8jwc0d3FEvjsBpeme3S/c1oQs2zpAPFyZlMo=</dsig:DigestValue>
     </hash>
   </file>
   <file name="InOculus.dll.config" size="1191">
