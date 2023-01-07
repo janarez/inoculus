@@ -92,6 +92,7 @@ namespace InOculus
             Properties.Settings.Default.BreakInterval = int.Parse(txbBreak.Text);
             Properties.Settings.Default.BreakWindowCloseKey = int.Parse(txbBreakKey.Text);
             Properties.Settings.Default.RunOnStartup = (bool)ckbStartup.IsChecked;
+            Properties.Settings.Default.Save();
             DialogResult = true; // To tell main window that settings have changed.
             Close();
         }
