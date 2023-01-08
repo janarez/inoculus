@@ -1,0 +1,7 @@
+﻿GetWindowLong
+ShowWindow
+GetWindowThreadProcessId
+GetForegroundWindow
+GetCurrentThreadId
+AttachThreadInput
+BringWindowToTop

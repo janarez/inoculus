@@ -47,6 +47,7 @@ namespace InOculus
 #endif
             // One break window / monitor.
             breakWindows = new List<BreakWindow>(Screen.AllScreens.Select((Screen s) => new BreakWindow(breakInterval, s.WpfBounds)));
+            breakWindows.First().MainOne = true; // First monitor will have keyboard focus.
             breakWindows.ForEach(w => w.Escaped += BreakTimer_Elapsed);
 
             // Time break also in main window to know when to start another focus round.
@@ -125,16 +126,7 @@ namespace InOculus
         {
             StopFocusing();
             breakTimer.Start();
-            // First monitor will have keyboard focus.
-            Dispatcher.Invoke(() => breakWindows.First().StartShowAndFocus());
-            Dispatcher.Invoke(() =>
-            {
-                var bws = breakWindows.Skip(1);
-                foreach (BreakWindow bw in bws)
-                {
-                    bw.StartAndShow();
-                }
-            });
+            Dispatcher.Invoke(() => breakWindows.ForEach(w => w.StartAndShow()));
         }
 
         private void BreakTimer_Elapsed(object sender, EventArgs e)

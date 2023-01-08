@@ -17,6 +17,9 @@
   
   <ItemGroup>
     <PackageReference Include="MahApps.Metro.IconPacks.BootstrapIcons" Version="4.11.0" />
+    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.2.164-beta">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="WpfScreenHelper" Version="2.1.0" />
   </ItemGroup>
 

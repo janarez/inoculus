@@ -1,16 +1,7 @@
 ﻿using InOculus.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace InOculus
 {
@@ -36,6 +27,11 @@ namespace InOculus
             txtInstructions.Text = $"Press {((Key)Properties.Settings.Default.BreakWindowCloseKey).ToString().ToUpper()} to start over";
         }
 
+        /// <summary>
+        /// Whether this is the main of break windows.
+        /// </summary>
+        public bool MainOne { get; set; }
+
         private void WndBreak_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == (Key)Properties.Settings.Default.BreakWindowCloseKey)
@@ -55,20 +51,22 @@ namespace InOculus
             intervalTimer.Start();
             Show();
             Activate();
-        }
 
-        public void StartShowAndFocus()
-        {
-            intervalTimer.Start();
-            Show();
-            Activate();
-            Focus();
+            // Force focus the main window.
+            if (MainOne)
+            {
+#if DEBUG
+                Focus();
+#else
+                Interop.FocusWindow(new System.Windows.Interop.WindowInteropHelper(this).EnsureHandle());
+#endif
+            }
         }
 
         private void WndBreak_Loaded(object sender, RoutedEventArgs e)
-        {   
+        {
             // Necessary to call after window is loaded, otherwise it is maximized on primary monitor.
-            WindowState = WindowState.Maximized;      
+            WindowState = WindowState.Maximized;
         }
     }
 }
