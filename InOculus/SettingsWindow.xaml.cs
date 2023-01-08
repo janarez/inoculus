@@ -87,12 +87,24 @@ namespace InOculus
                 return;
             }
 
+            // Handle startup registry.
+            bool runOnStartUp = (bool)ckbStartup.IsChecked;
+            if (runOnStartUp)
+            {
+                Startup.Register();
+            }
+            else
+            {
+                Startup.Deregister();
+            }
+
             // Save new settings.
             Properties.Settings.Default.FocusInterval = int.Parse(txbFocus.Text);
             Properties.Settings.Default.BreakInterval = int.Parse(txbBreak.Text);
             Properties.Settings.Default.BreakWindowCloseKey = int.Parse(txbBreakKey.Text);
-            Properties.Settings.Default.RunOnStartup = (bool)ckbStartup.IsChecked;
+            Properties.Settings.Default.RunOnStartup = runOnStartUp;
             Properties.Settings.Default.Save();
+
             DialogResult = true; // To tell main window that settings have changed.
             Close();
         }
