@@ -10,6 +10,14 @@ namespace InOculus.Utilities
         private const string registryName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
         private static readonly string assemblyLocation = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.Programs), AppPreferences.AppName, $"{AppPreferences.AppName}.appref-ms");
 
+        public static bool IsRegistered
+        {
+            get
+            {
+                using var key = Registry.CurrentUser.OpenSubKey(registryName, false);
+                return key.GetValueNames().Contains(AppPreferences.AppName);
+            }
+        }
 
         public static void Register()
         {
