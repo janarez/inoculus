@@ -19,6 +19,8 @@
 
   <ItemGroup>
     <Content Include="InOculus.ico" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="InOculus-pause.ico" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="InOculus-stop.ico" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   
   <ItemGroup>

@@ -30,6 +30,7 @@ namespace InOculus
         {
             // Otherwise `BreakWindow` from the `breakWindows` attribute will be main.
             Application.Current.MainWindow = this;
+            ((App)Application.Current).SetState(AppState.Stop);
 
             InitializeComponent();
             InitializeColorTheme();
@@ -110,6 +111,7 @@ namespace InOculus
             if (focusOn)
             {
                 StopFocusing();
+                ((App)Application.Current).SetState(AppState.Stop);
                 icnPlay.Kind = Icons.Play;
                 arcCountDown.Visibility = Visibility.Hidden;
             }
@@ -117,6 +119,7 @@ namespace InOculus
             else
             {
                 StartFocusing();
+                ((App)Application.Current).SetState(AppState.Focus);
                 icnPlay.Kind = Icons.Stop;
                 arcCountDown.Visibility = Visibility.Visible;
             }

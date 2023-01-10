@@ -2,6 +2,7 @@
 using System;
 using System.Threading;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace InOculus
 {
@@ -10,6 +11,8 @@ namespace InOculus
     /// </summary>
     public partial class App : Application
     {
+        public AppState State;
+
         private Mutex mutex;
         private EventWaitHandle eventWaitHandle;
 
@@ -28,7 +31,7 @@ namespace InOculus
 
             // First instance.
             if (createdNew)
-            {   
+            {
                 // Spawn thread that will wait for launch of another app instance 
                 // and bring main window of existing one to foreground.
                 var thread = new Thread(
@@ -55,5 +58,27 @@ namespace InOculus
             eventWaitHandle.Dispose();
             base.OnExit(e);
         }
+
+        public void SetState(AppState state)
+        {
+            string icon = state switch
+            {
+                AppState.Stop => "InOculus-stop.ico",
+                AppState.Pause => "InOculus-stop.ico",
+                _ => "InOculus.ico"
+            };
+            State = state;
+            Uri iconUri = new Uri($"pack://application:,,,/{icon}", UriKind.Absolute);
+            MainWindow.Icon = BitmapFrame.Create(iconUri);
+        }
     }
+
+    public enum AppState
+    {
+        Focus,
+        Break,
+        Pause,
+        Stop,
+    }
+
 }
