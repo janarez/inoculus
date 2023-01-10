@@ -72,7 +72,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Click="BtnInfo_Click" x:Name="btnInfo" Style="{StaticResource topBarButton}" 
+            <Button Cursor="Hand" Click="BtnInfo_Click" x:Name="btnInfo" Style="{StaticResource topBarButton}" 
                     Content="{iconPacks:BootstrapIcons Kind={x:Static utilities:Icons.Info}}"/>
             <Button Grid.Column="1" Click="BtnStats_Click" x:Name="btnStats" Style="{StaticResource topBarButton}" 
                     Content="{iconPacks:BootstrapIcons Kind={x:Static utilities:Icons.Stats}}"/>

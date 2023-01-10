@@ -1,6 +1,7 @@
 ﻿using InOculus.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Timers;
 using System.Windows;
@@ -159,7 +160,11 @@ namespace InOculus
         #region TopBarButtons
         private void BtnInfo_Click(object sender, RoutedEventArgs e)
         {
-            return;
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = AppPreferences.RepositoryURL,
+                UseShellExecute = true
+            });
         }
 
         private void BtnStats_Click(object sender, RoutedEventArgs e)

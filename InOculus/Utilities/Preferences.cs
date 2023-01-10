@@ -6,6 +6,8 @@ namespace InOculus.Utilities
     class AppPreferences
     {
         public const string AppName = "InOculus";
+        public const string RepositoryURL = "https://github.com/janarez/inoculus#readme";
+
         public const double CountDownCircleSpeed = 100;
         public const double IntervalTimerSpeed = 1000;
 
