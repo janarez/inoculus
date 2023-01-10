@@ -2,7 +2,7 @@
 
 <p align="center">Minimal desktop timer to remind you to get up and relieve eyestrain.</p>
 <p align="center">
-  <a href="#install">About</a> •
+  <a href="#about">About</a> •
   <a href="#install">Install</a> •
   <a href="#license">License</a>
 </p>
@@ -14,8 +14,7 @@ InOculus is a simple desktop timer designed to push you towards taking breaks fr
 
 It automatically cycles between focus and break intervals. During focus the InOculus timer counts down remaining focus time. During break a break screen with countdown appears on all monitors and counts down remaining break time. If needed the break screen can be dismissed straight away.
 
-<img src="./screenshots/InOculus-timer.png" alt="InOculus timer" height="250"/>
-<img src="./screenshots/InOculus-break.png" alt="InOculus break screen" height="250"/>
+<img src="./screenshots/InOculus-timer.png" alt="InOculus timer" height="250"/> <img src="./screenshots/InOculus-break.png" alt="InOculus break screen" height="250"/>
 
 ### Features
 
