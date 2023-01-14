@@ -37,6 +37,7 @@ namespace InOculus
             if (e.Key == (Key)Properties.Settings.Default.BreakWindowCloseKey)
             {
                 Escaped(sender, e);
+                e.Handled = true;
             }
         }
 
