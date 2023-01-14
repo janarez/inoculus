@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="InOculus.exe" version="0.1.6.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="InOculus.exe" version="0.2.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="InOculus.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
@@ -54,22 +54,22 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="InOculus.dll" size="351232">
+  <file name="InOculus.dll" size="354816">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>pI5qRFfzjySlKvw0+1zBc+zbFNTJH5QkDx/RGVUH6nc=</dsig:DigestValue>
+      <dsig:DigestValue>AUlKyFEGlH8R0uaY8VAAVfTyUHNRIhoJqqC4DC6Kzzo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="InOculus.dll.config" size="1065">
+  <file name="InOculus.dll.config" size="1193">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>AZHnROI1kz/SFxsiF5iLiYxHW8cbRVofcqzQLtDHNrY=</dsig:DigestValue>
+      <dsig:DigestValue>Kh2hcOrnZilFEJvkvLP2hqor0zR3tIt/Qtf/In3D4gk=</dsig:DigestValue>
     </hash>
   </file>
   <file name="InOculus.exe" size="433152">
@@ -97,6 +97,24 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>HsoPDHAHCqg7tgnkt0mybctECXhDJgMnJjlHIiJKCYo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="InOculus-pause.ico" size="285478">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Ye/WCFZ5bdwOYBJfIfI0AJ5GA4Bf7yM1ZGa0wh3Dv+I=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="InOculus-stop.ico" size="285478">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>0lRBya4ZXTT/SNdq1WfkIrCWt9hLAnSSqQIk6AZUVW8=</dsig:DigestValue>
     </hash>
   </file>
   <file name="MahApps.Metro.IconPacks.BootstrapIcons.dll" size="2193920">

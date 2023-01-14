@@ -16,6 +16,9 @@
             <setting name="BreakWindowCloseKey" serializeAs="String">
                 <value>13</value>
             </setting>
+            <setting name="StartOnStartup" serializeAs="String">
+                <value>False</value>
+            </setting>
         </InOculus.Properties.Settings>
     </userSettings>
 </configuration>
