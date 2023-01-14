@@ -45,7 +45,8 @@ namespace InOculus
             txbBreak.Text = Properties.Settings.Default.BreakInterval.ToString();
             txbBreakKey.Text = Properties.Settings.Default.BreakWindowCloseKey.ToString();
             txtBreakKey.Text = ((Key)Properties.Settings.Default.BreakWindowCloseKey).ToString();
-            ckbStartup.IsChecked = Startup.IsRegistered;
+            ckbRunOnStartup.IsChecked = Startup.IsRegistered;
+            ckbStartOnStartup.IsChecked = Properties.Settings.Default.StartOnStartup;
         }
 
         private bool validateInteger(string stringValue, int minAllowed, int maxAllowed)
@@ -88,7 +89,7 @@ namespace InOculus
             }
 
             // Handle startup registry.
-            bool runOnStartUp = (bool)ckbStartup.IsChecked;
+            bool runOnStartUp = (bool)ckbRunOnStartup.IsChecked;
             if (runOnStartUp)
             {
                 Startup.Register();
@@ -102,6 +103,7 @@ namespace InOculus
             Properties.Settings.Default.FocusInterval = int.Parse(txbFocus.Text);
             Properties.Settings.Default.BreakInterval = int.Parse(txbBreak.Text);
             Properties.Settings.Default.BreakWindowCloseKey = int.Parse(txbBreakKey.Text);
+            Properties.Settings.Default.StartOnStartup = (bool)ckbStartOnStartup.IsChecked;
             Properties.Settings.Default.Save();
 
             DialogResult = true; // To tell main window that settings have changed.

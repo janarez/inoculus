@@ -218,7 +218,15 @@ namespace InOculus
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
-            this.DragMove();
+            DragMove();
+        }
+
+        private void wndMain_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Properties.Settings.Default.StartOnStartup)
+            {
+                BtnStart_Click(sender, e);
+            }
         }
     }
 }
