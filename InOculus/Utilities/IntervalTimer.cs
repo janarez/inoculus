@@ -42,13 +42,18 @@ namespace InOculus.Utilities
 
         public void Stop()
         {
-            CountDown = countDownInterval;
             timer.Stop();
+            CountDown = countDownInterval;
         }
 
         public void Close()
         {
             timer.Close();
+        }
+
+        public void Dispose()
+        {
+            timer.Dispose();
         }
     }
 

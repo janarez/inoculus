@@ -36,7 +36,6 @@ namespace InOculus
             InitializeComponent();
             InitializeColorTheme();
 
-            generateBreakWindowsAndTimer();
             generateCountDownCircleAndFocusTimer();
         }
 
@@ -129,13 +128,15 @@ namespace InOculus
         private void FocusTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             StopFocusing();
+            // Break windows are generated on the go to ensure their reflect current monitor setup.
+            Dispatcher.Invoke(() => generateBreakWindowsAndTimer());
             breakTimer.Start();
-            Dispatcher.Invoke(() => breakWindows.ForEach(w => w.StartAndShow()));
+            Dispatcher.Invoke(() => breakWindows.ForEach(w => w.Show()));
         }
 
         private void BreakTimer_Elapsed(object sender, EventArgs e)
         {
-            Dispatcher.Invoke(() => breakWindows.ForEach(w => w.StopAndHide()));
+            Dispatcher.Invoke(() => breakWindows.ForEach(w => w.Close()));
             breakTimer.Stop();
             StartFocusing();
         }

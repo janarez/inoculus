@@ -40,16 +40,18 @@ namespace InOculus
             }
         }
 
-        public void StopAndHide()
+        protected override void OnClosed(EventArgs e)
         {
-            intervalTimer.Stop();
-            Hide();
+            intervalTimer.Dispose();
+            base.OnClosed(e);
         }
 
-        public void StartAndShow()
+
+        private void WndBreak_Loaded(object sender, RoutedEventArgs e)
         {
+            // Necessary to call after window is loaded, otherwise it is maximized on primary monitor.
+            WindowState = WindowState.Maximized;
             intervalTimer.Start();
-            Show();
             Activate();
 
             // Force focus the main window.
@@ -61,12 +63,6 @@ namespace InOculus
                 Interop.FocusWindow(new System.Windows.Interop.WindowInteropHelper(this).EnsureHandle());
 #endif
             }
-        }
-
-        private void WndBreak_Loaded(object sender, RoutedEventArgs e)
-        {
-            // Necessary to call after window is loaded, otherwise it is maximized on primary monitor.
-            WindowState = WindowState.Maximized;
         }
     }
 }
