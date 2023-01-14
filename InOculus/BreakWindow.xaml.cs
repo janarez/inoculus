@@ -65,5 +65,10 @@ namespace InOculus
 #endif
             }
         }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Escaped(sender, e);
+        }
     }
 }

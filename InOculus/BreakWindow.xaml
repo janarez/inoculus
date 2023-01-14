@@ -3,19 +3,27 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:utilities="clr-namespace:InOculus.Utilities"
         xmlns:local="clr-namespace:InOculus"
         mc:Ignorable="d"
         Title="BreakWindow" ShowInTaskbar="False"
         Topmost="True" WindowStyle="None" AllowsTransparency="True" Background="{DynamicResource ResourceKey=BackgroundBrush}"
         KeyDown="WndBreak_KeyDown" Loaded="WndBreak_Loaded" 
         x:Name="wndBreak">
-    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Label Content="{Binding Path=CountDown}"  d:Content="00:05" 
-               HorizontalAlignment="Center" Margin="10"
-               FontSize="48" FontFamily="./Utilities/Fonts/#DSEG7 Classic"
-               Foreground="{DynamicResource ResourceKey=AccentBrush}"
-               x:Name="lblTime"></Label>
-        <TextBlock Foreground="{DynamicResource ResourceKey=AccentBrush}" FontSize="40" x:Name="txtInstructions"></TextBlock>
-    </StackPanel>
+    <Grid>
+        <Canvas>
+            <Button HorizontalAlignment="Right" Style="{StaticResource topBarButton}" Margin="20" Canvas.Top="0" Canvas.Right="0"
+                    Content="{iconPacks:BootstrapIcons Kind={x:Static utilities:Icons.Close}, Height=24, Width=24 }" Click="btnClose_Click" x:Name="btnClose"/>
+        </Canvas>
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="{Binding Path=CountDown}"  d:Content="00:05" 
+                HorizontalAlignment="Center" Margin="10"
+                FontSize="48" FontFamily="./Utilities/Fonts/#DSEG7 Classic"
+                Foreground="{DynamicResource ResourceKey=AccentBrush}"
+                x:Name="lblTime"></Label>
+            <TextBlock Foreground="{DynamicResource ResourceKey=AccentBrush}" FontSize="40" x:Name="txtInstructions"></TextBlock>
+        </StackPanel>
+    </Grid>
 </Window>
 
