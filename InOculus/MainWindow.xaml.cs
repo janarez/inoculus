@@ -1,10 +1,12 @@
 ﻿using InOculus.Utilities;
+using MahApps.Metro.IconPacks.Converter;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Timers;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using Windows.UI.ViewManagement;
@@ -26,6 +28,9 @@ namespace InOculus
         private List<BreakWindow> breakWindows;
 
         private bool focusOn = false;
+
+        private ImageSource imgSrcPlay;
+        private ImageSource imgSrcStop;
 
         public MainWindow()
         {
@@ -99,13 +104,20 @@ namespace InOculus
             Resources.Add("LightAccentRadialBorderBrush", lightAccentRadialBorder);
 
             // These are also used in `BreakWindow`.
-            Application.Current.Resources.Add("AccentBrush", new SolidColorBrush(accentColor));
+            var accentBrush = new SolidColorBrush(accentColor);
+            Application.Current.Resources.Add("AccentBrush", accentBrush);
             Application.Current.Resources.Add("LightAccentBrush", new SolidColorBrush(lightAccentColor));
             Application.Current.Resources.Add("BackgroundBrush", new SolidColorBrush(backgroundColor));
+
+            // Set color of thumbnail icons.
+            IValueConverter converter = new PackIconBootstrapIconsKindToImageConverter { Brush = accentBrush };
+            imgSrcPlay = (ImageSource)converter.Convert(Icons.Play, typeof(ImageSource), null, null);
+            imgSrcStop = (ImageSource)converter.Convert(Icons.Stop, typeof(ImageSource), null, null);
+            thmStart.ImageSource = imgSrcPlay;
         }
 
         #region CountDownTimer
-        private void BtnStart_Click(object sender, RoutedEventArgs e)
+        private void BtnStart_Click(object sender, EventArgs e)
         {
             // Stop.
             if (focusOn)
@@ -113,6 +125,7 @@ namespace InOculus
                 StopFocusing();
                 ((App)Application.Current).SetState(AppState.Stop);
                 icnPlay.Kind = Icons.Play;
+                thmStart.ImageSource = imgSrcPlay;
                 arcCountDown.Visibility = Visibility.Hidden;
             }
             // Start.
@@ -121,6 +134,7 @@ namespace InOculus
                 StartFocusing();
                 ((App)Application.Current).SetState(AppState.Focus);
                 icnPlay.Kind = Icons.Stop;
+                thmStart.ImageSource = imgSrcStop;
                 arcCountDown.Visibility = Visibility.Visible;
             }
         }
@@ -137,7 +151,7 @@ namespace InOculus
         private void BreakTimer_Elapsed(object sender, EventArgs e)
         {
             Dispatcher.Invoke(() => breakWindows.ForEach(w => w.Close()));
-            breakTimer.Stop();
+            breakTimer.Dispose();
             StartFocusing();
         }
 
@@ -211,6 +225,9 @@ namespace InOculus
 
         protected override void OnClosed(EventArgs e)
         {
+            IntervalTimer.Dispose();
+            CountDownCircle.Dispose();
+            focusTimer.Dispose();
             base.OnClosed(e);
             Application.Current.Shutdown();
         }

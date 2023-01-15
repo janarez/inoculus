@@ -61,9 +61,9 @@ namespace InOculus.Utilities
             timer.Stop();
         }
 
-        public void Close()
+        public void Dispose()
         {
-            timer.Close();
+            timer.Dispose();
         }
 
         private void SetPosition()

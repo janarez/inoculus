@@ -41,6 +41,15 @@
             </Setter>
         </Style>
     </Window.Resources>
+    <Window.TaskbarItemInfo>
+    <TaskbarItemInfo x:Name="taskBarItemInfo1" ThumbnailClipMargin="10,44,10,10">
+        <TaskbarItemInfo.ThumbButtonInfos>
+            <ThumbButtonInfoCollection>
+                    <ThumbButtonInfo x:Name="thmStart" DismissWhenClicked="False" Click="BtnStart_Click"/>
+            </ThumbButtonInfoCollection>
+        </TaskbarItemInfo.ThumbButtonInfos>
+    </TaskbarItemInfo>
+</Window.TaskbarItemInfo>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
