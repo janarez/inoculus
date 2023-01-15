@@ -5,7 +5,7 @@ using static Windows.Win32.PInvoke;
 
 namespace InOculus.Utilities
 {
-    static class Interop
+    static class FocusInterop
     {
         private const uint WS_MINIMIZE = 0x20000000;
 

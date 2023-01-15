@@ -61,7 +61,7 @@ namespace InOculus
 #if DEBUG
                 Focus();
 #else
-                Interop.FocusWindow(new System.Windows.Interop.WindowInteropHelper(this).EnsureHandle());
+                FocusInterop.FocusWindow(new System.Windows.Interop.WindowInteropHelper(this).EnsureHandle());
 #endif
             }
         }
