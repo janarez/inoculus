@@ -14,6 +14,7 @@
         Width="{x:Static utilities:AppPreferences.WindowWidth}" 
         ResizeMode="CanMinimize" 
         Loaded="wndMain_Loaded"
+        StateChanged="wndMain_StateChanged"
         x:Name="wndMain">
     <!-- Extra packages: 
         - Bootstrap Icons (https://github.com/MahApps/MahApps.Metro.IconPacks)
@@ -42,14 +43,14 @@
         </Style>
     </Window.Resources>
     <Window.TaskbarItemInfo>
-    <TaskbarItemInfo x:Name="taskBarItemInfo1" ThumbnailClipMargin="10,44,10,10">
-        <TaskbarItemInfo.ThumbButtonInfos>
-            <ThumbButtonInfoCollection>
+        <TaskbarItemInfo>
+            <TaskbarItemInfo.ThumbButtonInfos>
+                <ThumbButtonInfoCollection>
                     <ThumbButtonInfo x:Name="thmStart" DismissWhenClicked="False" Click="BtnStart_Click"/>
-            </ThumbButtonInfoCollection>
-        </TaskbarItemInfo.ThumbButtonInfos>
-    </TaskbarItemInfo>
-</Window.TaskbarItemInfo>
+                </ThumbButtonInfoCollection>
+            </TaskbarItemInfo.ThumbButtonInfos>
+        </TaskbarItemInfo>
+    </Window.TaskbarItemInfo>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

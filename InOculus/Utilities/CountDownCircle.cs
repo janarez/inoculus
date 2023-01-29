@@ -8,6 +8,7 @@ namespace InOculus.Utilities
 {
     class CountDownCircle : INotifyPropertyChanged
     {
+        private readonly ThumbnailPreview thumbnailPreview;
         private readonly Timer timer = new Timer(AppPreferences.CountDownCircleSpeed);
         private readonly double angle_step;
 
@@ -30,8 +31,10 @@ namespace InOculus.Utilities
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public CountDownCircle(double totalMiliseconds)
+        public CountDownCircle(double totalMiliseconds, ThumbnailPreview thumbnailPreview)
         {
+            this.thumbnailPreview = thumbnailPreview;
+
             // Start at the top, then go clockwise every `seconds_per_step`.
             angle_step = 2 * Math.PI / (totalMiliseconds / AppPreferences.CountDownCircleSpeed);
 
@@ -44,6 +47,7 @@ namespace InOculus.Utilities
             UpdateX();
             UpdateY();
             PropertyChanged(this, new PropertyChangedEventArgs(nameof(EndPoint)));
+            thumbnailPreview.Invalidate();
         }
 
         public void Start()

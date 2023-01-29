@@ -5,3 +5,11 @@ GetForegroundWindow
 GetCurrentThreadId
 AttachThreadInput
 BringWindowToTop
+
+DwmSetWindowAttribute
+DwmInvalidateIconicBitmaps
+DwmSetIconicThumbnail
+DwmSetIconicLivePreviewBitmap
+GetDC
+CreateCompatibleDC
+CreateDIBSection

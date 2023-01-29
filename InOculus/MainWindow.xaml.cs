@@ -19,6 +19,8 @@ namespace InOculus
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly ThumbnailPreview thumbnailPreview;
+
         private IntervalTimer IntervalTimer;
         private CountDownCircle CountDownCircle;
 
@@ -41,6 +43,7 @@ namespace InOculus
             InitializeComponent();
             InitializeColorTheme();
 
+            thumbnailPreview = new ThumbnailPreview(this.GetWindowHandle(), this);
             generateCountDownCircleAndFocusTimer();
         }
 
@@ -65,7 +68,7 @@ namespace InOculus
         private void generateCountDownCircleAndFocusTimer()
         {
 #if DEBUG
-            var focusInterval = new DisplayedTimeSpan(minutes: 0, seconds: 5);
+            var focusInterval = new DisplayedTimeSpan(minutes: 10, seconds: 0);
 #else
             var focusInterval = new DisplayedTimeSpan(minutes: Properties.Settings.Default.FocusInterval, seconds: 0);
 #endif
@@ -73,7 +76,7 @@ namespace InOculus
             IntervalTimer = new IntervalTimer(focusInterval);
             lblTime.DataContext = IntervalTimer;
             // Countdown circle animation.
-            CountDownCircle = new CountDownCircle(focusInterval.TimeSpan.TotalMilliseconds);
+            CountDownCircle = new CountDownCircle(focusInterval.TimeSpan.TotalMilliseconds, thumbnailPreview);
             arcCountDown.DataContext = CountDownCircle;
 
             // Time focus round in main window.
@@ -244,6 +247,11 @@ namespace InOculus
             {
                 BtnStart_Click(sender, e);
             }
+        }
+
+        private void wndMain_StateChanged(object sender, EventArgs e)
+        {
+            thumbnailPreview.Enable(WindowState == WindowState.Minimized);
         }
     }
 }
