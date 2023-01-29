@@ -23,6 +23,8 @@ It automatically cycles between focus and break intervals. During focus the InOc
 - Slick design using your Windows color theme
 - Option to open app on startup
 - Visual indicator of application state (running, stopped, etc.) through taskbar icon color
+- Timer updates in thumbnail even if app is minimized
+- Quick control from thumbnail
 - One click installation and updates
 
 ### Name
