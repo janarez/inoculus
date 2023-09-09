@@ -47,6 +47,7 @@ namespace InOculus
             txtBreakKey.Text = ((Key)Properties.Settings.Default.BreakWindowCloseKey).ToString();
             ckbRunOnStartup.IsChecked = Startup.IsRegistered;
             ckbStartOnStartup.IsChecked = Properties.Settings.Default.StartOnStartup;
+            ckbStartMinimized.IsChecked = Properties.Settings.Default.StartMinimized;
         }
 
         private bool validateInteger(string stringValue, int minAllowed, int maxAllowed)
@@ -104,6 +105,7 @@ namespace InOculus
             Properties.Settings.Default.BreakInterval = int.Parse(txbBreak.Text);
             Properties.Settings.Default.BreakWindowCloseKey = int.Parse(txbBreakKey.Text);
             Properties.Settings.Default.StartOnStartup = (bool)ckbStartOnStartup.IsChecked;
+            Properties.Settings.Default.StartMinimized = (bool)ckbStartMinimized.IsChecked;
             Properties.Settings.Default.Save();
 
             DialogResult = true; // To tell main window that settings have changed.
