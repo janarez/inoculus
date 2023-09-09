@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <configSections>
+        <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+            <section name="InOculus.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false" />
+        </sectionGroup>
+    </configSections>
+    <userSettings>
+        <InOculus.Properties.Settings>
+            <setting name="FocusInterval" serializeAs="String">
+                <value>30</value>
+            </setting>
+            <setting name="BreakInterval" serializeAs="String">
+                <value>60</value>
+            </setting>
+            <setting name="BreakWindowCloseKey" serializeAs="String">
+                <value>13</value>
+            </setting>
+            <setting name="StartOnStartup" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="StartMinimized" serializeAs="String">
+                <value>False</value>
+            </setting>
+        </InOculus.Properties.Settings>
+    </userSettings>
+</configuration>

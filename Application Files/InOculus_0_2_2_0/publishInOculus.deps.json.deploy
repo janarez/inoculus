@@ -1,0 +1,127 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "InOculus/1.0.0": {
+        "dependencies": {
+          "MahApps.Metro.IconPacks.BootstrapIcons": "4.11.0",
+          "Microsoft.Windows.CsWin32": "0.2.164-beta",
+          "WpfScreenHelper": "2.1.0",
+          "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.19041.29"
+        },
+        "runtime": {
+          "InOculus.dll": {}
+        }
+      },
+      "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.19041.29": {
+        "runtime": {
+          "Microsoft.Windows.SDK.NET.dll": {
+            "assemblyVersion": "10.0.19041.24",
+            "fileVersion": "10.0.19041.29"
+          },
+          "WinRT.Runtime.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.3.42921"
+          }
+        }
+      },
+      "MahApps.Metro.IconPacks.BootstrapIcons/4.11.0": {
+        "runtime": {
+          "lib/net5.0-windows7.0/MahApps.Metro.IconPacks.BootstrapIcons.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.11.0.12"
+          },
+          "lib/net5.0-windows7.0/MahApps.Metro.IconPacks.Core.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.11.0.12"
+          }
+        }
+      },
+      "Microsoft.Windows.CsWin32/0.2.164-beta": {
+        "dependencies": {
+          "Microsoft.Windows.SDK.Win32Docs": "0.1.12-alpha",
+          "Microsoft.Windows.SDK.Win32Metadata": "39.0.18-preview",
+          "System.Memory": "4.5.5",
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        }
+      },
+      "Microsoft.Windows.SDK.Win32Docs/0.1.12-alpha": {},
+      "Microsoft.Windows.SDK.Win32Metadata/39.0.18-preview": {},
+      "System.Memory/4.5.5": {},
+      "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
+      "WpfScreenHelper/2.1.0": {
+        "runtime": {
+          "lib/netcoreapp3.1/WpfScreenHelper.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "InOculus/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.19041.29": {
+      "type": "runtimepack",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MahApps.Metro.IconPacks.BootstrapIcons/4.11.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PiKLp5u58E852bkx1EhqWbCt1Xsyeqyyr+GKXFzJ9OfaKc6pWT2HvskQdlJdRVyGQae8A+3jnzxwUYoh3IlYuQ==",
+      "path": "mahapps.metro.iconpacks.bootstrapicons/4.11.0",
+      "hashPath": "mahapps.metro.iconpacks.bootstrapicons.4.11.0.nupkg.sha512"
+    },
+    "Microsoft.Windows.CsWin32/0.2.164-beta": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FxKqWqtYHAeLvJPAH8q2R6AERm91N8eX051DQ+muY6zKlymqO2c5cHNEYeAdFJwNP0Hy4MYsYhqTWJdxFCgogg==",
+      "path": "microsoft.windows.cswin32/0.2.164-beta",
+      "hashPath": "microsoft.windows.cswin32.0.2.164-beta.nupkg.sha512"
+    },
+    "Microsoft.Windows.SDK.Win32Docs/0.1.12-alpha": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DcKRcvQkTP+aT1Y+GcrzhmZJ9zEXpwqrcQZNER0k+ksLUDl0hsAFMqhpI4aqwEEXG1qbLyAINqcZHE47kpqt6Q==",
+      "path": "microsoft.windows.sdk.win32docs/0.1.12-alpha",
+      "hashPath": "microsoft.windows.sdk.win32docs.0.1.12-alpha.nupkg.sha512"
+    },
+    "Microsoft.Windows.SDK.Win32Metadata/39.0.18-preview": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-h6ayEOK8HxGr4+dwqRno/grl7JZwPfqv7SyMmJs9aQbAJm+cGygAsKkN5iSkEok0sFWZcjW3xVmjyMKlVYkglg==",
+      "path": "microsoft.windows.sdk.win32metadata/39.0.18-preview",
+      "hashPath": "microsoft.windows.sdk.win32metadata.39.0.18-preview.nupkg.sha512"
+    },
+    "System.Memory/4.5.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
+      "path": "system.memory/4.5.5",
+      "hashPath": "system.memory.4.5.5.nupkg.sha512"
+    },
+    "System.Runtime.CompilerServices.Unsafe/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
+      "path": "system.runtime.compilerservices.unsafe/6.0.0",
+      "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    },
+    "WpfScreenHelper/2.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZzS/lkme7QcYIvQgsVw9D1OuI/fSrNnoDXXDCrFmacYVvdGXOQlGEeQBbKdBP9r4k+3CsUQMZq59RU99I9Mjhw==",
+      "path": "wpfscreenhelper/2.1.0",
+      "hashPath": "wpfscreenhelper.2.1.0.nupkg.sha512"
+    }
+  }
+}
