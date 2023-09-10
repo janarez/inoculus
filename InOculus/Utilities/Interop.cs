@@ -69,13 +69,5 @@ namespace InOculus.Utilities
                 DeleteDC(dcMem);
             }
         }
-
-        public static double GetDpi(this HWND hwnd)
-        {
-            var monitor = MonitorFromWindow(hwnd, MONITOR_FROM_FLAGS.MONITOR_DEFAULTTONEAREST);
-            GetDpiForMonitor(monitor, Windows.Win32.UI.HiDpi.MONITOR_DPI_TYPE.MDT_RAW_DPI, out var dpi, out _).ThrowOnFailure();
-            GetScaleFactorForMonitor(monitor, out var scaleFactor);
-            return dpi * ((int)scaleFactor / 100.0);
-        }
     }
 }

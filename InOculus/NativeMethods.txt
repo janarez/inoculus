@@ -12,7 +12,3 @@ DwmSetIconicThumbnail
 DwmSetIconicLivePreviewBitmap
 CreateCompatibleDC
 CreateDIBSection
-
-MonitorFromWindow
-GetDpiForMonitor
-GetScaleFactorForMonitor

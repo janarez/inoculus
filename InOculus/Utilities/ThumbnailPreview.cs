@@ -116,10 +116,9 @@ namespace InOculus.Utilities
                     unsafe
                     {
                         var image = element.TakeScreenshot();
-                        var dpi = this.hwnd.GetDpi();
-                        var dpiScale = dpi / 96.0;
-                        var scaledImage = new TransformedBitmap(image, new ScaleTransform(dpiScale, dpiScale));
-                        var hbitmap = scaledImage.ToHbitmap();
+                        var dpi = VisualTreeHelper.GetDpi(element);
+                        image = new TransformedBitmap(image, new ScaleTransform(dpi.DpiScaleX, dpi.DpiScaleY));
+                        var hbitmap = image.ToHbitmap();
                         try
                         {
                             DwmSetIconicLivePreviewBitmap(this.hwnd, hbitmap, null, 0).ThrowOnFailure();
