@@ -21,6 +21,7 @@ namespace InOculus.Utilities
         private readonly FrameworkElement element;
         private readonly HwndSource hwndSource;
         private readonly HwndSourceHook hook;
+        private double scale = 1.0;
 
         public ThumbnailPreview(IntPtr windowHandle, FrameworkElement element)
         {
@@ -80,18 +81,33 @@ namespace InOculus.Utilities
             {
                 case WmDwmSendIconThumbnail:
                     {
-                        var (width, height) = (lParam.LoWord(), lParam.HiWord());
-                        var image = element.TakeScreenshot();
-                        var scale = Math.Min(width / image.Width, height / image.Height);
-                        image = new TransformedBitmap(image, new ScaleTransform(scale, scale));
-                        var hbitmap = image.ToHbitmap();
-                        try
+                        var (maxWidth, maxHeight) = (lParam.LoWord(), lParam.HiWord());
+                        while (true)
                         {
-                            DwmSetIconicThumbnail(this.hwnd, hbitmap, 0).ThrowOnFailure();
-                        }
-                        finally
-                        {
-                            DeleteObject(new HGDIOBJ(hbitmap));
+                            var maxSize = new Size(maxWidth * scale, maxHeight * scale);
+                            var image = element.TakeScreenshot();
+                            var imageScale = Math.Min(maxSize.Width / image.Width, maxSize.Height / image.Height);
+                            var scaledImage = new TransformedBitmap(image, new ScaleTransform(imageScale, imageScale));
+                            var hbitmap = scaledImage.ToHbitmap();
+                            try
+                            {
+                                var hresult = DwmSetIconicThumbnail(this.hwnd, hbitmap, 0);
+                                if (hresult.Succeeded)
+                                {
+                                    break;
+                                }
+
+                                // Scale the image down until successful.
+                                // Needed probably due to a Windows bug.
+                                if (scale < 0.2) break;
+                                scale -= 0.1;
+                                Debug.WriteLine($"Scaled: {scale}");
+                                continue;
+                            }
+                            finally
+                            {
+                                DeleteObject(new HGDIOBJ(hbitmap));
+                            }
                         }
                         handled = true;
                         break;
@@ -100,9 +116,10 @@ namespace InOculus.Utilities
                     unsafe
                     {
                         var image = element.TakeScreenshot();
-                        var dpi = VisualTreeHelper.GetDpi(element);
-                        image = new TransformedBitmap(image, new ScaleTransform(dpi.DpiScaleX, dpi.DpiScaleY));
-                        var hbitmap = image.ToHbitmap();
+                        var dpi = this.hwnd.GetDpi();
+                        var dpiScale = dpi / 96.0;
+                        var scaledImage = new TransformedBitmap(image, new ScaleTransform(dpiScale, dpiScale));
+                        var hbitmap = scaledImage.ToHbitmap();
                         try
                         {
                             DwmSetIconicLivePreviewBitmap(this.hwnd, hbitmap, null, 0).ThrowOnFailure();

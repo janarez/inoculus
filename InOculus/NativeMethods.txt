@@ -10,6 +10,9 @@ DwmSetWindowAttribute
 DwmInvalidateIconicBitmaps
 DwmSetIconicThumbnail
 DwmSetIconicLivePreviewBitmap
-GetDC
 CreateCompatibleDC
 CreateDIBSection
+
+MonitorFromWindow
+GetDpiForMonitor
+GetScaleFactorForMonitor
