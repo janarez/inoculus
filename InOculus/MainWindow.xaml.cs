@@ -45,12 +45,6 @@ namespace InOculus
 
             thumbnailPreview = new ThumbnailPreview(this.GetWindowHandle(), this);
             generateCountDownCircleAndFocusTimer();
-
-            if (Properties.Settings.Default.StartMinimized)
-            {
-                this.WindowState = WindowState.Minimized;
-                thumbnailPreview.Enable(true);
-            }
         }
 
         private void generateBreakWindowsAndTimer()
@@ -249,6 +243,10 @@ namespace InOculus
 
         private void wndMain_Loaded(object sender, RoutedEventArgs e)
         {
+            if (Properties.Settings.Default.StartMinimized)
+            {
+                WindowState = WindowState.Minimized;
+            }
             if (Properties.Settings.Default.StartOnStartup)
             {
                 BtnStart_Click(sender, e);
