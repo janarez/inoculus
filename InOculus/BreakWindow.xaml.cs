@@ -1,4 +1,5 @@
-﻿using InOculus.Utilities;
+﻿using InOculus.Properties;
+using InOculus.Utilities;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -12,7 +13,8 @@ namespace InOculus
     {
         private readonly IntervalTimer intervalTimer;
 
-        public event EventHandler Escaped;
+        public event EventHandler<int?> Escaped;
+        public event EventHandler Stopped;
 
         public BreakWindow(DisplayedTimeSpan breakInterval, Rect wpfBounds)
         {
@@ -24,7 +26,7 @@ namespace InOculus
             Width = wpfBounds.Width;
             Height = wpfBounds.Height;
             lblTime.DataContext = intervalTimer;
-            txtInstructions.Text = $"Press {((Key)Properties.Settings.Default.BreakWindowCloseKey).ToString().ToUpper()} to start over";
+            txtInstructions.Text = $"Press {((Key)Settings.Default.BreakWindowCloseKey).ToString().ToUpper()} to start over";
         }
 
         /// <summary>
@@ -34,10 +36,22 @@ namespace InOculus
 
         private void WndBreak_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == (Key)Properties.Settings.Default.BreakWindowCloseKey)
+            if (e.Key == Key.D0)
             {
-                Escaped(sender, e);
+                Stopped(sender, e);
                 e.Handled = true;
+            }
+
+            foreach (var (key, focusInterval) in new[] {
+                ((Key)Settings.Default.BreakWindowCloseKey, (int?)null),
+                (Key.D1, 1), (Key.D2, 2), (Key.D3, 3), (Key.D4, 4), (Key.D5, 5), (Key.D6, 6), (Key.D7, 7), (Key.D8, 8), (Key.D9, 9)
+            })
+            {
+                if (e.Key == key)
+                {
+                    Escaped(sender, focusInterval);
+                    e.Handled = true;
+                }
             }
         }
 
@@ -68,7 +82,7 @@ namespace InOculus
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            Escaped(sender, e);
+            Escaped(sender, null);
         }
     }
 }

@@ -21,8 +21,8 @@ namespace InOculus
     {
         private readonly ThumbnailPreview thumbnailPreview;
 
-        private IntervalTimer IntervalTimer;
-        private CountDownCircle CountDownCircle;
+        private IntervalTimer intervalTimer;
+        private CountDownCircle countDownCircle;
 
         private Timer focusTimer;
         private Timer breakTimer;
@@ -44,7 +44,7 @@ namespace InOculus
             InitializeColorTheme();
 
             thumbnailPreview = new ThumbnailPreview(this.GetWindowHandle(), this);
-            generateCountDownCircleAndFocusTimer();
+            generateFocusTimers(Properties.Settings.Default.FocusInterval);
         }
 
         private void generateBreakWindowsAndTimer()
@@ -57,31 +57,40 @@ namespace InOculus
             // One break window / monitor.
             breakWindows = new List<BreakWindow>(Screen.AllScreens.Select((Screen s) => new BreakWindow(breakInterval, s.WpfBounds)));
             breakWindows.First().MainOne = true; // First monitor will have keyboard focus.
-            breakWindows.ForEach(w => w.Escaped += BreakTimer_Elapsed);
+            breakWindows.ForEach(w => w.Escaped += BreakWindow_Elapsed);
+            breakWindows.ForEach(w => w.Stopped += BreakWindow_Stopped);
 
             // Time break also in main window to know when to start another focus round.
             breakTimer = new Timer(breakInterval.TimeSpan.TotalMilliseconds);
-            breakTimer.Elapsed += BreakTimer_Elapsed;
+            breakTimer.Elapsed += (sender, e) => BreakWindow_Elapsed(sender, null);
         }
 
 
-        private void generateCountDownCircleAndFocusTimer()
+        private void generateFocusTimers(int focusMinutes)
         {
+            disposeFocusTimers();
 #if DEBUG
-            var focusInterval = new DisplayedTimeSpan(minutes: 10, seconds: 0);
+            var focusInterval = new DisplayedTimeSpan(minutes: 0, seconds: focusMinutes * 10);
 #else
-            var focusInterval = new DisplayedTimeSpan(minutes: Properties.Settings.Default.FocusInterval, seconds: 0);
+            var focusInterval = new DisplayedTimeSpan(minutes: focusMinutes, seconds: 0);
 #endif
             // Timer to change label with countdown.
-            IntervalTimer = new IntervalTimer(focusInterval);
-            lblTime.DataContext = IntervalTimer;
+            intervalTimer = new IntervalTimer(focusInterval);
+            lblTime.DataContext = intervalTimer;
             // Countdown circle animation.
-            CountDownCircle = new CountDownCircle(focusInterval.TimeSpan.TotalMilliseconds, thumbnailPreview);
-            arcCountDown.DataContext = CountDownCircle;
+            countDownCircle = new CountDownCircle(focusInterval.TimeSpan.TotalMilliseconds, thumbnailPreview);
+            arcCountDown.DataContext = countDownCircle;
 
             // Time focus round in main window.
             focusTimer = new Timer(focusInterval.TimeSpan.TotalMilliseconds);
             focusTimer.Elapsed += FocusTimer_Elapsed;
+        }
+
+        private void disposeFocusTimers()
+        {
+            intervalTimer?.Dispose();
+            countDownCircle?.Dispose();
+            focusTimer?.Dispose();
         }
 
         private void InitializeColorTheme()
@@ -126,19 +135,32 @@ namespace InOculus
             if (focusOn)
             {
                 StopFocusing();
-                ((App)Application.Current).SetState(AppState.Stop);
-                icnPlay.Kind = Icons.Play;
-                thmStart.ImageSource = imgSrcPlay;
-                arcCountDown.Visibility = Visibility.Hidden;
+                SetState(AppState.Stop);
             }
             // Start.
             else
             {
                 StartFocusing();
-                ((App)Application.Current).SetState(AppState.Focus);
-                icnPlay.Kind = Icons.Stop;
-                thmStart.ImageSource = imgSrcStop;
-                arcCountDown.Visibility = Visibility.Visible;
+                SetState(AppState.Focus);
+            }
+        }
+
+        private void SetState(AppState state)
+        {
+            switch (state)
+            {
+                case AppState.Focus:
+                    ((App)Application.Current).SetState(AppState.Focus);
+                    icnPlay.Kind = Icons.Stop;
+                    thmStart.ImageSource = imgSrcStop;
+                    arcCountDown.Visibility = Visibility.Visible;
+                    break;
+                case AppState.Stop:
+                    ((App)Application.Current).SetState(AppState.Stop);
+                    icnPlay.Kind = Icons.Play;
+                    thmStart.ImageSource = imgSrcPlay;
+                    arcCountDown.Visibility = Visibility.Hidden;
+                    break;
             }
         }
 
@@ -151,26 +173,38 @@ namespace InOculus
             Dispatcher.Invoke(() => breakWindows.ForEach(w => w.Show()));
         }
 
-        private void BreakTimer_Elapsed(object sender, EventArgs e)
+        private void DisposeBreakWindows()
         {
             Dispatcher.Invoke(() => breakWindows.ForEach(w => w.Close()));
             breakTimer.Dispose();
-            StartFocusing();
+        }
+
+        private void BreakWindow_Elapsed(object sender, int? focusMinutes)
+        {
+            DisposeBreakWindows();
+            StartFocusing(focusMinutes);
+        }
+
+        private void BreakWindow_Stopped(object sender, EventArgs e)
+        {
+            DisposeBreakWindows();
+            SetState(AppState.Stop);
         }
 
         private void StopFocusing()
         {
             focusTimer.Stop();
-            IntervalTimer.Stop();
-            CountDownCircle.Stop();
+            intervalTimer.Stop();
+            countDownCircle.Stop();
             focusOn = false;
         }
 
-        private void StartFocusing()
+        private void StartFocusing(int? focusMinutes = null)
         {
+            Dispatcher.Invoke(() => generateFocusTimers(focusMinutes ?? Properties.Settings.Default.FocusInterval));
             focusTimer.Start();
-            IntervalTimer.Start();
-            CountDownCircle.Start();
+            intervalTimer.Start();
+            countDownCircle.Start();
             focusOn = true;
         }
         #endregion
@@ -200,11 +234,12 @@ namespace InOculus
                 if (focusOn)
                 {
                     // Stop the focus round since we might be changing focus time while its running.
-                    BtnStart_Click(null, null);
+                    StopFocusing();
+                    SetState(AppState.Stop);
                 }
                 // Regenerate break windows and timers with new settings.
                 generateBreakWindowsAndTimer();
-                generateCountDownCircleAndFocusTimer();
+                generateFocusTimers(Properties.Settings.Default.FocusInterval);
             }
         }
 
@@ -228,9 +263,7 @@ namespace InOculus
 
         protected override void OnClosed(EventArgs e)
         {
-            IntervalTimer.Dispose();
-            CountDownCircle.Dispose();
-            focusTimer.Dispose();
+            disposeFocusTimers();
             base.OnClosed(e);
             Application.Current.Shutdown();
         }
