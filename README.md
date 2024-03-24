@@ -27,6 +27,16 @@ It automatically cycles between focus and break intervals. During focus the InOc
 - Quick control from thumbnail
 - One click installation and updates
 
+#### Finer control
+
+Dismissing break window can be done in one of these ways:
+
+- Wait until break interval elapses
+- Press ESC (configurable)
+- Click close icon
+- Press 1–9 to get another break after 1–9 minutes instead of the full focus time
+- Press 0 (configurable) to stop InOculus
+
 ### Name
 
 InOculus was created to help protect eyes by relieving eyestrain. The name is derived from Latin and means In 'in' + Oculus 'eye' that is "in the eye". Simultaneously, it spells and reads similarly to the English word innocuous meaning 'not harmful'.
