@@ -162,6 +162,7 @@ namespace InOculus
                     arcCountDown.Visibility = Visibility.Hidden;
                     break;
             }
+            thumbnailPreview.Invalidate();
         }
 
         private void FocusTimer_Elapsed(object sender, ElapsedEventArgs e)
