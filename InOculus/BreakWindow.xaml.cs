@@ -36,7 +36,7 @@ namespace InOculus
 
         private void WndBreak_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.D0)
+            if (e.Key == (Key)Settings.Default.BreakWindowStopAppKey)
             {
                 Stopped(sender, e);
                 e.Handled = true;

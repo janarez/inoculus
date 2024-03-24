@@ -1,8 +1,10 @@
-﻿using InOculus.Utilities;
+﻿using InOculus.Properties;
+using InOculus.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -26,9 +28,9 @@ namespace InOculus
         private const int minimumBreakIntervalSeconds = 1;
         private const int maximumBreakIntervalSeconds = 99 * 60;
         private readonly Func<bool> isBreakIntervalValid;
-        // Break keybord key.
-        private readonly HashSet<int> allowedBreakKeyValues = Enum.GetValues<Key>().Select(x => (int)x).ToHashSet();
-        private Func<bool> isBreakKeyValid;
+        // Keybord key.
+        private readonly HashSet<int> allowedKeyboardKeyValues = Enum.GetValues<Key>().Select(x => (int)x).ToHashSet();
+        private Func<string, bool> isKeyboardKeyValid;
 
         public SettingsWindow()
         {
@@ -38,16 +40,21 @@ namespace InOculus
             // Initialize validators.
             isFocusIntervalValid = () => validateInteger(txbFocus.Text, minAllowed: minimumFocusIntervalMins, maxAllowed: maximumFocusIntervalMins);
             isBreakIntervalValid = () => validateInteger(txbBreak.Text, minAllowed: minimumBreakIntervalSeconds, maxAllowed: maximumBreakIntervalSeconds);
-            isBreakKeyValid = () => int.TryParse(txbBreakKey.Text, out int value) && allowedBreakKeyValues.Contains(value);
+            isKeyboardKeyValid = (string keyboardKey) => int.TryParse(keyboardKey, out int value) && allowedKeyboardKeyValues.Contains(value);
 
             // Show current settings.
-            txbFocus.Text = Properties.Settings.Default.FocusInterval.ToString();
-            txbBreak.Text = Properties.Settings.Default.BreakInterval.ToString();
-            txbBreakKey.Text = Properties.Settings.Default.BreakWindowCloseKey.ToString();
-            txtBreakKey.Text = ((Key)Properties.Settings.Default.BreakWindowCloseKey).ToString();
+            txbFocus.Text = Settings.Default.FocusInterval.ToString();
+            txbBreak.Text = Settings.Default.BreakInterval.ToString();
+
+            txtboxBreakWindowBreakKey.Text = Settings.Default.BreakWindowCloseKey.ToString();
+            txtblockBreakWindowBreakKey.Text = ((Key)Settings.Default.BreakWindowCloseKey).ToString();
+
+            txtboxBreakWindowStopAppKey.Text = Settings.Default.BreakWindowStopAppKey.ToString();
+            txtblockBreakWindowStopAppKey.Text = ((Key)Settings.Default.BreakWindowStopAppKey).ToString();
+
             ckbRunOnStartup.IsChecked = Startup.IsRegistered;
-            ckbStartOnStartup.IsChecked = Properties.Settings.Default.StartOnStartup;
-            ckbStartMinimized.IsChecked = Properties.Settings.Default.StartMinimized;
+            ckbStartOnStartup.IsChecked = Settings.Default.StartOnStartup;
+            ckbStartMinimized.IsChecked = Settings.Default.StartMinimized;
         }
 
         private bool validateInteger(string stringValue, int minAllowed, int maxAllowed)
@@ -56,33 +63,50 @@ namespace InOculus
             return isNumber && value >= minAllowed && value <= maxAllowed;
         }
 
-        private void txbFocus_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void txbFocus_TextChanged(object sender, TextChangedEventArgs e)
         {
             txbFocus.Background = isFocusIntervalValid() ? validSettingBrush : invalidSettingBrush;
         }
 
-        private void txbBreak_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void txbBreak_TextChanged(object sender, TextChangedEventArgs e)
         {
             txbBreak.Background = isBreakIntervalValid() ? validSettingBrush : invalidSettingBrush;
         }
 
-        private void txbBreakKey_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void txtboxBreakWindowBreakKey_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var isValid = isBreakKeyValid();
-            txbBreakKey.Background = isValid ? validSettingBrush : invalidSettingBrush;
+            validateSelectedKeyboardKey(txtboxBreakWindowBreakKey, txtblockBreakWindowBreakKey);
+        }
+
+        private void txtboxBreakWindowStopAppKey_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            validateSelectedKeyboardKey(txtboxBreakWindowStopAppKey, txtblockBreakWindowStopAppKey);
+        }
+
+
+
+        private void validateSelectedKeyboardKey(TextBox textBox, TextBlock textBlock)
+        {
+            var isValid = isKeyboardKeyValid(textBox.Text);
+            textBox.Background = isValid ? validSettingBrush : invalidSettingBrush;
             if (isValid)
             {
-                txtBreakKey.Text = ((Key)int.Parse(txbBreakKey.Text)).ToString().ToUpper();
+                textBlock.Text = ((Key)int.Parse(textBox.Text)).ToString().ToUpper();
             }
             else
             {
-                txtBreakKey.Text = "invalid key value";
+                textBlock.Text = "invalid key value";
             }
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            var allValid = isFocusIntervalValid() && isBreakIntervalValid() && isBreakKeyValid();
+            var allValid = (
+                isFocusIntervalValid()
+                && isBreakIntervalValid()
+                && isKeyboardKeyValid(txtboxBreakWindowBreakKey.Text)
+                && isKeyboardKeyValid(txtboxBreakWindowStopAppKey.Text)
+            );
             if (!allValid)
             {
                 txtSave.Text = "Could not save invalid settings. Fix all with red background.";
@@ -101,12 +125,16 @@ namespace InOculus
             }
 
             // Save new settings.
-            Properties.Settings.Default.FocusInterval = int.Parse(txbFocus.Text);
-            Properties.Settings.Default.BreakInterval = int.Parse(txbBreak.Text);
-            Properties.Settings.Default.BreakWindowCloseKey = int.Parse(txbBreakKey.Text);
-            Properties.Settings.Default.StartOnStartup = (bool)ckbStartOnStartup.IsChecked;
-            Properties.Settings.Default.StartMinimized = (bool)ckbStartMinimized.IsChecked;
-            Properties.Settings.Default.Save();
+            Settings.Default.FocusInterval = int.Parse(txbFocus.Text);
+            Settings.Default.BreakInterval = int.Parse(txbBreak.Text);
+
+            Settings.Default.BreakWindowCloseKey = int.Parse(txtboxBreakWindowBreakKey.Text);
+            Settings.Default.BreakWindowStopAppKey = int.Parse(txtboxBreakWindowStopAppKey.Text);
+
+            Settings.Default.StartOnStartup = (bool)ckbStartOnStartup.IsChecked;
+            Settings.Default.StartMinimized = (bool)ckbStartMinimized.IsChecked;
+
+            Settings.Default.Save();
 
             DialogResult = true; // To tell main window that settings have changed.
             Close();
