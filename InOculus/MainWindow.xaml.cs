@@ -126,6 +126,7 @@ namespace InOculus
             imgSrcPlay = (ImageSource)converter.Convert(Icons.Play, typeof(ImageSource), null, null);
             imgSrcStop = (ImageSource)converter.Convert(Icons.Stop, typeof(ImageSource), null, null);
             thmStart.ImageSource = imgSrcPlay;
+            thmRepeat.ImageSource = (ImageSource)converter.Convert(Icons.Repeat, typeof(ImageSource), null, null);
         }
 
         #region CountDownTimer
@@ -145,13 +146,19 @@ namespace InOculus
             }
         }
 
+        private void BtnRepeat_Click(object sender, EventArgs e)
+        {
+            focusOn = false;
+            BtnStart_Click(sender, e);
+        }
+
         private void SetState(AppState state)
         {
             switch (state)
             {
                 case AppState.Focus:
                     ((App)Application.Current).SetState(AppState.Focus);
-                    icnPlay.Kind = Icons.Stop;
+                    icnPlay.Kind = Icons.StopLg;
                     thmStart.ImageSource = imgSrcStop;
                     arcCountDown.Visibility = Visibility.Visible;
                     break;

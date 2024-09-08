@@ -47,6 +47,7 @@
             <TaskbarItemInfo.ThumbButtonInfos>
                 <ThumbButtonInfoCollection>
                     <ThumbButtonInfo x:Name="thmStart" DismissWhenClicked="False" Click="BtnStart_Click"/>
+                    <ThumbButtonInfo x:Name="thmRepeat" DismissWhenClicked="False" Click="BtnRepeat_Click"/>
                 </ThumbButtonInfoCollection>
             </TaskbarItemInfo.ThumbButtonInfos>
         </TaskbarItemInfo>
