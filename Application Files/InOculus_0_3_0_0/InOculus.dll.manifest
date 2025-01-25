@@ -54,13 +54,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="InOculus.dll" size="375296">
+  <file name="InOculus.dll" size="374784">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>n021CGFgHpPFP/yiIb3wSgIqOLFo/SSpdQn42Rr4aOM=</dsig:DigestValue>
+      <dsig:DigestValue>sMTuvVft42+BJZ/JEL/HEk+29dhF2AV3ctJcaEjyFRo=</dsig:DigestValue>
     </hash>
   </file>
   <file name="InOculus.dll.config" size="1453">
@@ -78,7 +78,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>5fx6xtbeWJbAkCyatnCOl4X8TPjuB5AKsHmbi5U2CzI=</dsig:DigestValue>
+      <dsig:DigestValue>VSgTKTFNewkapN7R1QojYs/i+D6H7VuB6W63UVJ8R4Q=</dsig:DigestValue>
     </hash>
   </file>
   <file name="InOculus.ico" size="285478">
@@ -144,31 +144,22 @@
       <dsig:DigestValue>Fgdi0qygIEUiB7i2cVkh712SRSSmS8ld7YRj8GO70oA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="publishInOculus.deps.json" size="6202">
+  <file name="publishInOculus.deps.json" size="6000">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>A7bLjIZ7XotRET06okSvNQncRzVDE7pnQUlY3hXmGEc=</dsig:DigestValue>
+      <dsig:DigestValue>yeN5VMfjLFMtGlAFbkGA8Y5ldN2xhUd4uXYMQXYydi4=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="runtimes\win\lib\net6.0\System.Management.dll" size="292000">
+  <file name="System.Management.dll" size="292000">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>LL6DImagVSBfKdO7rGpcj+dE2jm2vHsFrlu1rKEHvHA=</dsig:DigestValue>
-    </hash>
-  </file>
-  <file name="System.Management.dll" size="72880">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>MGoyMyaXBNFpUNLq0/RbXIn6WC0fxzMTXTGViRsKRiA=</dsig:DigestValue>
     </hash>
   </file>
   <file name="WinRT.Runtime.dll" size="529440">

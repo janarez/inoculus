@@ -1,11 +1,12 @@
 {
   "runtimeTarget": {
-    "name": ".NETCoreApp,Version=v6.0",
+    "name": ".NETCoreApp,Version=v6.0/win-x64",
     "signature": ""
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v6.0": {
+    ".NETCoreApp,Version=v6.0": {},
+    ".NETCoreApp,Version=v6.0/win-x64": {
       "InOculus/1.0.0": {
         "dependencies": {
           "MahApps.Metro.IconPacks.BootstrapIcons": "4.11.0",
@@ -58,15 +59,7 @@
           "System.CodeDom": "6.0.0"
         },
         "runtime": {
-          "lib/net6.0/System.Management.dll": {
-            "assemblyVersion": "6.0.0.2",
-            "fileVersion": "6.0.1823.26907"
-          }
-        },
-        "runtimeTargets": {
           "runtimes/win/lib/net6.0/System.Management.dll": {
-            "rid": "win",
-            "assetType": "runtime",
             "assemblyVersion": "6.0.0.2",
             "fileVersion": "6.0.1823.26907"
           }
