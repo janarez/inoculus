@@ -20,6 +20,7 @@ It automatically cycles between focus and break intervals. During focus the InOc
 
 - Custom focus and break intervals
 - Multi-monitor support for break screen
+- Automatic pause mode when another app is using the camera to avoid break screen during calls
 - Slick design using your Windows color theme
 - Option to open app on startup
 - Visual indicator of application state (running, stopped, etc.) through taskbar icon color
