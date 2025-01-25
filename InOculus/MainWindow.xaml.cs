@@ -34,6 +34,9 @@ namespace InOculus
         private ImageSource imgSrcPlay;
         private ImageSource imgSrcStop;
 
+        private CameraUsageWatcher cameraUsageWatcher;
+
+
         public MainWindow()
         {
             // Otherwise `BreakWindow` from the `breakWindows` attribute will be main.
@@ -45,6 +48,8 @@ namespace InOculus
 
             thumbnailPreview = new ThumbnailPreview(this.GetWindowHandle(), this);
             generateFocusTimers(Properties.Settings.Default.FocusInterval);
+
+            cameraUsageWatcher = new CameraUsageWatcher();
         }
 
         private void generateBreakWindowsAndTimer()
@@ -272,6 +277,7 @@ namespace InOculus
         protected override void OnClosed(EventArgs e)
         {
             disposeFocusTimers();
+            cameraUsageWatcher.Dispose();
             base.OnClosed(e);
             Application.Current.Shutdown();
         }
