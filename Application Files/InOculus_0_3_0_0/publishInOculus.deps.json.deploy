@@ -10,7 +10,7 @@
         "dependencies": {
           "MahApps.Metro.IconPacks.BootstrapIcons": "4.11.0",
           "Microsoft.Windows.CsWin32": "0.2.164-beta",
-          "System.Management": "7.0.0",
+          "System.Management": "6.0.2",
           "WpfScreenHelper": "2.1.0",
           "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.19041.55"
         },
@@ -52,30 +52,23 @@
       },
       "Microsoft.Windows.SDK.Win32Docs/0.1.12-alpha": {},
       "Microsoft.Windows.SDK.Win32Metadata/39.0.18-preview": {},
-      "System.CodeDom/7.0.0": {
-        "runtime": {
-          "lib/net6.0/System.CodeDom.dll": {
-            "assemblyVersion": "7.0.0.0",
-            "fileVersion": "7.0.22.51805"
-          }
-        }
-      },
-      "System.Management/7.0.0": {
+      "System.CodeDom/6.0.0": {},
+      "System.Management/6.0.2": {
         "dependencies": {
-          "System.CodeDom": "7.0.0"
+          "System.CodeDom": "6.0.0"
         },
         "runtime": {
           "lib/net6.0/System.Management.dll": {
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "7.0.22.51805"
+            "assemblyVersion": "6.0.0.2",
+            "fileVersion": "6.0.1823.26907"
           }
         },
         "runtimeTargets": {
           "runtimes/win/lib/net6.0/System.Management.dll": {
             "rid": "win",
             "assetType": "runtime",
-            "assemblyVersion": "4.0.0.0",
-            "fileVersion": "7.0.22.51805"
+            "assemblyVersion": "6.0.0.2",
+            "fileVersion": "6.0.1823.26907"
           }
         }
       },
@@ -130,19 +123,19 @@
       "path": "microsoft.windows.sdk.win32metadata/39.0.18-preview",
       "hashPath": "microsoft.windows.sdk.win32metadata.39.0.18-preview.nupkg.sha512"
     },
-    "System.CodeDom/7.0.0": {
+    "System.CodeDom/6.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-GLltyqEsE5/3IE+zYRP5sNa1l44qKl9v+bfdMcwg+M9qnQf47wK3H0SUR/T+3N4JEQXF3vV4CSuuo0rsg+nq2A==",
-      "path": "system.codedom/7.0.0",
-      "hashPath": "system.codedom.7.0.0.nupkg.sha512"
+      "sha512": "sha512-CPc6tWO1LAer3IzfZufDBRL+UZQcj5uS207NHALQzP84Vp/z6wF0Aa0YZImOQY8iStY0A2zI/e3ihKNPfUm8XA==",
+      "path": "system.codedom/6.0.0",
+      "hashPath": "system.codedom.6.0.0.nupkg.sha512"
     },
-    "System.Management/7.0.0": {
+    "System.Management/6.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-A4jed4QUviDOm7fJNKAJObEAEkEUXmkGL/w0iyCYTzrl1rezTj8LGFHfsVst4Vb9JwFcTpboiDrvdST48avBpw==",
-      "path": "system.management/7.0.0",
-      "hashPath": "system.management.7.0.0.nupkg.sha512"
+      "sha512": "sha512-s6c9x2Kghd+ncEDnT6ApYVOacDXr/Y57oSUSx6wjegMOfKxhtrXn3PdASPNU59y3kB9OJ1yb3l5k6uKr3bhqew==",
+      "path": "system.management/6.0.2",
+      "hashPath": "system.management.6.0.2.nupkg.sha512"
     },
     "System.Memory/4.5.5": {
       "type": "package",
