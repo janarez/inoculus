@@ -5,6 +5,7 @@
     <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>InOculus.ico</ApplicationIcon>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     
     <!-- Strong name required to have settings saved in a deterministic location. -->
     <SignAssembly>true</SignAssembly>
