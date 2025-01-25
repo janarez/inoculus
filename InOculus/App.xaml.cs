@@ -64,7 +64,7 @@ namespace InOculus
             string icon = state switch
             {
                 AppState.Stop => "InOculus-stop.ico",
-                AppState.Pause => "InOculus-stop.ico",
+                AppState.Pause => "InOculus-pause.ico",
                 _ => "InOculus.ico"
             };
             State = state;

@@ -174,6 +174,12 @@ namespace InOculus
                     thmStart.ImageSource = imgSrcPlay;
                     arcCountDown.Visibility = Visibility.Hidden;
                     break;
+                case AppState.Pause:
+                    ((App)Application.Current).SetState(AppState.Pause);
+                    icnPlay.Kind = Icons.StopLg;
+                    thmStart.ImageSource = imgSrcStop;
+                    arcCountDown.Visibility = Visibility.Visible;
+                    break;
             }
             thumbnailPreview.Invalidate();
         }
@@ -181,10 +187,15 @@ namespace InOculus
         private void FocusTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             StopFocusing();
-            // Break windows are generated on the go to ensure their reflect current monitor setup.
-            Dispatcher.Invoke(() => generateBreakWindowsAndTimer());
-            breakTimer.Start();
-            Dispatcher.Invoke(() => breakWindows.ForEach(w => w.Show()));
+
+            // If app is in pause state we let it run without intruding user.
+            if (((App)Application.Current).State != AppState.Pause)
+            {
+                // Break windows are generated on the go to ensure their reflect current monitor setup.
+                Dispatcher.Invoke(() => generateBreakWindowsAndTimer());
+                breakTimer.Start();
+                Dispatcher.Invoke(() => breakWindows.ForEach(w => w.Show()));
+            }
         }
 
         private void DisposeBreakWindows()
@@ -310,15 +321,18 @@ namespace InOculus
         {
             var currentAppState = ((App)Application.Current).State;
 
-            if (e.AppStateToTrigger == AppState.Pause)
+            if (e.AppStateToTrigger == AppState.Pause && currentAppState == AppState.Focus)
             {
-                StopFocusing();
-                Dispatcher.Invoke(() => SetState(AppState.Stop));
+                Dispatcher.Invoke(() => SetState(AppState.Pause));
             }
             else if (e.AppStateToTrigger == AppState.Focus && currentAppState != AppState.Focus)
             {
-                StartFocusing();
                 Dispatcher.Invoke(() => SetState(AppState.Focus));
+                // If there should already have been break during app pause, give it few minutes before generating break.
+                if (focusOn == false)
+                {
+                    StartFocusing(focusMinutes: 2);
+                }
             }
         }
 
