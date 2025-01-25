@@ -50,6 +50,7 @@ namespace InOculus
             generateFocusTimers(Properties.Settings.Default.FocusInterval);
 
             cameraUsageWatcher = new CameraUsageWatcher();
+            cameraUsageWatcher.CameraStateChanged += CameraUsageWatcher_CameraStateChanged;
         }
 
         private void generateBreakWindowsAndTimer()
@@ -304,5 +305,22 @@ namespace InOculus
         {
             thumbnailPreview.Enable(WindowState == WindowState.Minimized);
         }
+
+        private void CameraUsageWatcher_CameraStateChanged(object sender, CameraStateChangedEventArgs e)
+        {
+            var currentAppState = ((App)Application.Current).State;
+
+            if (e.AppStateToTrigger == AppState.Pause)
+            {
+                StopFocusing();
+                Dispatcher.Invoke(() => SetState(AppState.Stop));
+            }
+            else if (e.AppStateToTrigger == AppState.Focus && currentAppState != AppState.Focus)
+            {
+                StartFocusing();
+                Dispatcher.Invoke(() => SetState(AppState.Focus));
+            }
+        }
+
     }
 }

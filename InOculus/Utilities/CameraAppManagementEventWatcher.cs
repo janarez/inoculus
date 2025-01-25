@@ -60,15 +60,5 @@ namespace InOculus.Utilities
         {
             CameraStateChanged(this, e);
         }
-
-        public class CameraStateChangedEventArgs : EventArgs
-        {
-            public AppState AppStateToTrigger { get; }
-
-            public CameraStateChangedEventArgs(AppState appStateToTrigger)
-            {
-                AppStateToTrigger = appStateToTrigger;
-            }
-        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Principal;
@@ -7,6 +8,8 @@ namespace InOculus.Utilities
 {
     internal class CameraUsageWatcher
     {
+        public event EventHandler<CameraStateChangedEventArgs> CameraStateChanged;
+
         private readonly List<CameraAppManagementEventWatcher> cameraEventWatchers = new();
 
         public CameraUsageWatcher()
@@ -34,9 +37,9 @@ namespace InOculus.Utilities
                 }
             }
         }
-        private void CameraWatcher_CameraStateChanged(object sender, CameraAppManagementEventWatcher.CameraStateChangedEventArgs e)
+        private void CameraWatcher_CameraStateChanged(object sender, CameraStateChangedEventArgs e)
         {
-            Debug.WriteLine(e.AppStateToTrigger);
+            CameraStateChanged(sender, e);
         }
 
         public void Dispose()
