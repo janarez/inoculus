@@ -2,11 +2,11 @@
 
 namespace InOculus.Utilities
 {
-    internal class CameraStateChangedEventArgs : EventArgs
+    internal class MeetingStateChangedEventArgs : EventArgs
     {
         public AppState AppStateToTrigger { get; }
 
-        public CameraStateChangedEventArgs(AppState appStateToTrigger)
+        public MeetingStateChangedEventArgs(AppState appStateToTrigger)
         {
             AppStateToTrigger = appStateToTrigger;
         }

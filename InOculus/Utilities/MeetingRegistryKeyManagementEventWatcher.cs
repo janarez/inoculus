@@ -4,9 +4,9 @@ using System.Management;
 
 namespace InOculus.Utilities
 {
-    internal class CameraAppManagementEventWatcher
+    internal class MeetingRegistryKeyManagementEventWatcher
     {
-        public event EventHandler<CameraStateChangedEventArgs> CameraStateChanged;
+        public event EventHandler<MeetingStateChangedEventArgs> MeetingStateChanged;
 
         private readonly ManagementEventWatcher appLastStopEventWatcher;
 
@@ -16,18 +16,18 @@ namespace InOculus.Utilities
         private readonly RegistryKey appRegistryKey;
 
 
-        public CameraAppManagementEventWatcher(string registryKeyPath)
+        public MeetingRegistryKeyManagementEventWatcher(string registryKeyPath)
         {
             appRegistryKey = Registry.Users.OpenSubKey(registryKeyPath);
             string queryWithoutValue = $"SELECT * FROM RegistryValueChangeEvent WHERE Hive = 'HKEY_USERS' AND KeyPath = '{registryKeyPath.Replace("\\", "\\\\")}'";
 
             // Stop watcher.
             appLastStopEventWatcher = new ManagementEventWatcher(new EventQuery(queryWithoutValue + $"AND ValueName = '{appLastStopRegistryValueName}'"));
-            appLastStopEventWatcher.EventArrived += appCameraStateChangedEventHandler;
+            appLastStopEventWatcher.EventArrived += meetingRegistryKeyChangedEventHandler;
             appLastStopEventWatcher.Start();
         }
 
-        private void appCameraStateChangedEventHandler(object sender, EventArrivedEventArgs e)
+        private void meetingRegistryKeyChangedEventHandler(object sender, EventArrivedEventArgs e)
         {
             var startTimestampObject = appRegistryKey.GetValue(appLastStartRegistryValueName);
             var startTimestamp = convertActiveDirectoryTimeToDateTime(startTimestampObject);
@@ -36,7 +36,8 @@ namespace InOculus.Utilities
             var stopTimestamp = convertActiveDirectoryTimeToDateTime(stopTimestampObject);
 
             var appStateToTrigger = (DateTime.Now > startTimestamp && stopTimestamp == null) ? AppState.Pause : AppState.Focus;
-            OnCameraStateChanged(new CameraStateChangedEventArgs(appStateToTrigger));
+
+            OnMeetingStateChanged(new MeetingStateChangedEventArgs(appStateToTrigger));
         }
 
         private static DateTime? convertActiveDirectoryTimeToDateTime(object? activeDirectoryTime)
@@ -56,9 +57,9 @@ namespace InOculus.Utilities
             appLastStopEventWatcher.Dispose();
         }
 
-        private void OnCameraStateChanged(CameraStateChangedEventArgs e)
+        private void OnMeetingStateChanged(MeetingStateChangedEventArgs e)
         {
-            CameraStateChanged(this, e);
+            MeetingStateChanged(this, e);
         }
     }
 }

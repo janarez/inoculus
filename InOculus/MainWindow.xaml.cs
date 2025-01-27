@@ -34,7 +34,7 @@ namespace InOculus
         private ImageSource imgSrcPlay;
         private ImageSource imgSrcStop;
 
-        private CameraUsageWatcher cameraUsageWatcher;
+        private MeetingWatcher meetingWatcher;
 
 
         public MainWindow()
@@ -49,8 +49,8 @@ namespace InOculus
             thumbnailPreview = new ThumbnailPreview(this.GetWindowHandle(), this);
             generateFocusTimers(Properties.Settings.Default.FocusInterval);
 
-            cameraUsageWatcher = new CameraUsageWatcher();
-            cameraUsageWatcher.CameraStateChanged += CameraUsageWatcher_CameraStateChanged;
+            meetingWatcher = new MeetingWatcher();
+            meetingWatcher.MeetingStateChanged += MeetingWatcher_MeetingStateChanged;
         }
 
         private void generateBreakWindowsAndTimer()
@@ -289,7 +289,7 @@ namespace InOculus
         protected override void OnClosed(EventArgs e)
         {
             disposeFocusTimers();
-            cameraUsageWatcher.Dispose();
+            meetingWatcher.Dispose();
             base.OnClosed(e);
             Application.Current.Shutdown();
         }
@@ -317,7 +317,7 @@ namespace InOculus
             thumbnailPreview.Enable(WindowState == WindowState.Minimized);
         }
 
-        private void CameraUsageWatcher_CameraStateChanged(object sender, CameraStateChangedEventArgs e)
+        private void MeetingWatcher_MeetingStateChanged(object sender, MeetingStateChangedEventArgs e)
         {
             var currentAppState = ((App)Application.Current).State;
 

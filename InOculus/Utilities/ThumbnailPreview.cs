@@ -101,7 +101,6 @@ namespace InOculus.Utilities
                                 // Needed probably due to a Windows bug.
                                 if (scale < 0.2) break;
                                 scale -= 0.1;
-                                Debug.WriteLine($"Scaled: {scale}");
                                 continue;
                             }
                             finally
