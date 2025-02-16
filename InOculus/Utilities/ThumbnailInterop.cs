@@ -10,7 +10,7 @@ using static Windows.Win32.PInvoke;
 
 namespace InOculus.Utilities
 {
-    static class Interop
+    static class ThumbnailInterop
     {
         public static IntPtr GetWindowHandle(this Window window) => new WindowInteropHelper(window).EnsureHandle();
         public static int LoWord(this IntPtr ptr) => unchecked((int)((long)ptr >> 16));
