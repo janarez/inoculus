@@ -9,7 +9,7 @@ namespace InOculus.Utilities
     {
         public event EventHandler<MeetingStateChangedEventArgs> MeetingStateChanged;
 
-        private readonly List<MeetingRegistryKeyManagementEventWatcher> meetingEventWatchers = new();
+        private readonly List<BaseRegistryKeyEventWatcher> meetingEventWatchers = new();
 
         public MeetingWatcher()
         {
@@ -18,6 +18,7 @@ namespace InOculus.Utilities
 
             if (currentUserPath != null)
             {
+                // Peripherals - webcam, mic.
                 var consentStorePath = $"{currentUserPath}\\Software\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore";
                 var consentsToMonitor = new List<string> {
                     "webcam", // System (camera app, Teams) apps with camera access.
@@ -36,7 +37,7 @@ namespace InOculus.Utilities
                         foreach (var appName in parentRegistryKey.GetSubKeyNames())
                         {
                             var registryKeyPath = $"{constentPath}\\{appName}";
-                            var meetingWatcher = new MeetingRegistryKeyManagementEventWatcher(registryKeyPath);
+                            var meetingWatcher = new PeripheralUseRegistryKeyEventWatcher(registryKeyPath);
                             meetingEventWatchers.Add(meetingWatcher);
                             meetingWatcher.MeetingStateChanged += MeetingWatcher_MeetingStateChanged;
                         }
@@ -44,6 +45,9 @@ namespace InOculus.Utilities
                         parentRegistryKey.Close();
                     }
                 }
+
+                // Do not disturb mode.
+                // TODO.
             }
         }
         private void MeetingWatcher_MeetingStateChanged(object sender, MeetingStateChangedEventArgs e)
