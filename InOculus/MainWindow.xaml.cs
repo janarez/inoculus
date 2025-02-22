@@ -1,4 +1,5 @@
 ﻿using InOculus.Utilities;
+using InOculus.Utilities.SmartPause;
 using MahApps.Metro.IconPacks.Converter;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace InOculus
         private ImageSource imgSrcPlay;
         private ImageSource imgSrcStop;
 
-        private MeetingWatcher meetingWatcher;
+        private SmartPauseWatcher smartPauseWatcher;
 
 
         public MainWindow()
@@ -49,8 +50,8 @@ namespace InOculus
             thumbnailPreview = new ThumbnailPreview(this.GetWindowHandle(), this);
             generateFocusTimers(Properties.Settings.Default.FocusInterval);
 
-            meetingWatcher = new MeetingWatcher();
-            meetingWatcher.MeetingStateChanged += MeetingWatcher_MeetingStateChanged;
+            smartPauseWatcher = new SmartPauseWatcher();
+            smartPauseWatcher.SmartPauseEvent += SmartPauseWatcher_SmartPauseEvent;
         }
 
         private void generateBreakWindowsAndTimer()
@@ -289,7 +290,7 @@ namespace InOculus
         protected override void OnClosed(EventArgs e)
         {
             disposeFocusTimers();
-            meetingWatcher.Dispose();
+            smartPauseWatcher.Dispose();
             base.OnClosed(e);
             Application.Current.Shutdown();
         }
@@ -317,7 +318,7 @@ namespace InOculus
             thumbnailPreview.Enable(WindowState == WindowState.Minimized);
         }
 
-        private void MeetingWatcher_MeetingStateChanged(object sender, MeetingStateChangedEventArgs e)
+        private void SmartPauseWatcher_SmartPauseEvent(object sender, SmartPauseEventArgs e)
         {
             var currentAppState = ((App)Application.Current).State;
 

@@ -2,11 +2,11 @@
 using System;
 using System.Management;
 
-namespace InOculus.Utilities
+namespace InOculus.Utilities.SmartPause
 {
     internal abstract class BaseRegistryKeyEventWatcher
     {
-        public event EventHandler<MeetingStateChangedEventArgs> MeetingStateChanged;
+        public event EventHandler<SmartPauseEventArgs> SmartPauseEvent;
 
         protected readonly ManagementEventWatcher eventWatcher;
         protected readonly RegistryKey registryKey;
@@ -32,9 +32,9 @@ namespace InOculus.Utilities
             eventWatcher.Dispose();
         }
 
-        protected void OnMeetingStateChanged(MeetingStateChangedEventArgs e)
+        protected void OnSmartPauseEvent(SmartPauseEventArgs e)
         {
-            MeetingStateChanged?.Invoke(this, e);
+            SmartPauseEvent?.Invoke(this, e);
         }
     }
 }

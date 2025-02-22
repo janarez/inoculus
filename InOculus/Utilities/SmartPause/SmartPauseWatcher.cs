@@ -3,15 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Security.Principal;
 
-namespace InOculus.Utilities
+namespace InOculus.Utilities.SmartPause
 {
-    internal class MeetingWatcher
+    internal class SmartPauseWatcher
     {
-        public event EventHandler<MeetingStateChangedEventArgs> MeetingStateChanged;
+        public event EventHandler<SmartPauseEventArgs> SmartPauseEvent;
 
-        private readonly List<BaseRegistryKeyEventWatcher> meetingEventWatchers = new();
+        private readonly List<BaseRegistryKeyEventWatcher> registryKeyWatchers = new();
 
-        public MeetingWatcher()
+        public SmartPauseWatcher()
         {
             // Cannot use HKEY_CURRENT_USER directly as it's not tracked by `RegistryEvent`, so we need to look through HKEY_USERS.
             var currentUserPath = WindowsIdentity.GetCurrent().User?.Value;
@@ -37,9 +37,9 @@ namespace InOculus.Utilities
                         foreach (var appName in parentRegistryKey.GetSubKeyNames())
                         {
                             var registryKeyPath = $"{constentPath}\\{appName}";
-                            var meetingWatcher = new PeripheralUseRegistryKeyEventWatcher(registryKeyPath);
-                            meetingEventWatchers.Add(meetingWatcher);
-                            meetingWatcher.MeetingStateChanged += MeetingWatcher_MeetingStateChanged;
+                            var registryKeyWatcher = new PeripheralUseRegistryKeyEventWatcher(registryKeyPath);
+                            registryKeyWatchers.Add(registryKeyWatcher);
+                            registryKeyWatcher.SmartPauseEvent += SmartPauseWatcher_SmartPauseEvent;
                         }
 
                         parentRegistryKey.Close();
@@ -50,16 +50,16 @@ namespace InOculus.Utilities
                 // TODO.
             }
         }
-        private void MeetingWatcher_MeetingStateChanged(object sender, MeetingStateChangedEventArgs e)
+        private void SmartPauseWatcher_SmartPauseEvent(object sender, SmartPauseEventArgs e)
         {
-            MeetingStateChanged(sender, e);
+            SmartPauseEvent(sender, e);
         }
 
         public void Dispose()
         {
-            foreach (var meetingEventWatcher in meetingEventWatchers)
+            foreach (var registryKeyWatcher in registryKeyWatchers)
             {
-                meetingEventWatcher.Dispose();
+                registryKeyWatcher.Dispose();
             }
         }
     }

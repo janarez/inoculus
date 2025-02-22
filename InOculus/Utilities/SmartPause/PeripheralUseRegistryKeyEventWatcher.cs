@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Management;
 
-namespace InOculus.Utilities
+namespace InOculus.Utilities.SmartPause
 {
     internal class PeripheralUseRegistryKeyEventWatcher : BaseRegistryKeyEventWatcher
     {
@@ -22,12 +22,12 @@ namespace InOculus.Utilities
             var stopTimestampObject = registryKey.GetValue(appLastStopRegistryValueName);
             var stopTimestamp = convertActiveDirectoryTimeToDateTime(stopTimestampObject);
 
-            var appStateToTrigger = (DateTime.Now > startTimestamp && stopTimestamp == null) ? AppState.Pause : AppState.Focus;
+            var appStateToTrigger = DateTime.Now > startTimestamp && stopTimestamp == null ? AppState.Pause : AppState.Focus;
 
-            OnMeetingStateChanged(new MeetingStateChangedEventArgs(appStateToTrigger));
+            OnSmartPauseEvent(new SmartPauseEventArgs(appStateToTrigger));
         }
 
-        private static DateTime? convertActiveDirectoryTimeToDateTime(object? activeDirectoryTime)
+        private static DateTime? convertActiveDirectoryTimeToDateTime(object activeDirectoryTime)
         {
             if (activeDirectoryTime == null || (long)activeDirectoryTime == 0)
             {
