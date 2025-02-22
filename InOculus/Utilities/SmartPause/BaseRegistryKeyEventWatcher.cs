@@ -1,13 +1,10 @@
 ﻿using Microsoft.Win32;
-using System;
 using System.Management;
 
 namespace InOculus.Utilities.SmartPause
 {
     internal abstract class BaseRegistryKeyEventWatcher
     {
-        public event EventHandler<SmartPauseEventArgs> SmartPauseEvent;
-
         protected readonly ManagementEventWatcher eventWatcher;
         protected readonly RegistryKey registryKey;
 
@@ -16,7 +13,6 @@ namespace InOculus.Utilities.SmartPause
             registryKey = Registry.Users.OpenSubKey(registryKeyPath);
             string queryWithoutValue = $"SELECT * FROM RegistryValueChangeEvent WHERE Hive = 'HKEY_USERS' AND KeyPath = '{registryKeyPath.Replace("\\", "\\\\")}'";
 
-            // Stop watcher.
             eventWatcher = new ManagementEventWatcher(new EventQuery(queryWithoutValue + $"AND ValueName = '{registryValueName}'"));
             eventWatcher.EventArrived += registryKeyChangedEventHandler;
             eventWatcher.Start();
@@ -30,11 +26,6 @@ namespace InOculus.Utilities.SmartPause
             registryKey.Close();
             eventWatcher.Stop();
             eventWatcher.Dispose();
-        }
-
-        protected void OnSmartPauseEvent(SmartPauseEventArgs e)
-        {
-            SmartPauseEvent?.Invoke(this, e);
         }
     }
 }

@@ -5,20 +5,23 @@ using System.Security.Principal;
 
 namespace InOculus.Utilities.SmartPause
 {
-    internal class SmartPauseWatcher
+    internal class SmartPauseManager
     {
-        public event EventHandler<SmartPauseEventArgs> SmartPauseEvent;
+        public event EventHandler<SmartPauseEventArgs> SmartPauseStateChanged;
 
-        private readonly List<BaseRegistryKeyEventWatcher> registryKeyWatchers = new();
+        private readonly List<ISmartPauseWatcher> watchers = new();
 
-        public SmartPauseWatcher()
+        public SmartPauseManager()
         {
+            var doNotDisturbPoller = new DoNotDisturbModePoller();
+            doNotDisturbPoller.SmartPauseStateChanged += SmartPauseWatcher_SmartPauseStateChanged;
+
             // Cannot use HKEY_CURRENT_USER directly as it's not tracked by `RegistryEvent`, so we need to look through HKEY_USERS.
             var currentUserPath = WindowsIdentity.GetCurrent().User?.Value;
 
             if (currentUserPath != null)
             {
-                // Peripherals - webcam, mic.
+                // Webcam, mic.
                 var consentStorePath = $"{currentUserPath}\\Software\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore";
                 var consentsToMonitor = new List<string> {
                     "webcam", // System (camera app, Teams) apps with camera access.
@@ -37,29 +40,35 @@ namespace InOculus.Utilities.SmartPause
                         foreach (var appName in parentRegistryKey.GetSubKeyNames())
                         {
                             var registryKeyPath = $"{constentPath}\\{appName}";
-                            var registryKeyWatcher = new PeripheralUseRegistryKeyEventWatcher(registryKeyPath);
-                            registryKeyWatchers.Add(registryKeyWatcher);
-                            registryKeyWatcher.SmartPauseEvent += SmartPauseWatcher_SmartPauseEvent;
+                            var registryKeyWatcher = new LastUsedTimeRegistryKeyWatcher(registryKeyPath);
+                            watchers.Add(registryKeyWatcher);
+                            registryKeyWatcher.SmartPauseStateChanged += SmartPauseWatcher_SmartPauseStateChanged;
                         }
 
                         parentRegistryKey.Close();
                     }
                 }
-
-                // Do not disturb mode.
-                // TODO.
             }
         }
-        private void SmartPauseWatcher_SmartPauseEvent(object sender, SmartPauseEventArgs e)
+        private void SmartPauseWatcher_SmartPauseStateChanged(object sender, EventArgs e)
         {
-            SmartPauseEvent(sender, e);
+            foreach (var watcher in watchers)
+            {
+                var state = watcher.GetSmartPauseState();
+                if (state == SmartPauseState.On)
+                {
+                    SmartPauseStateChanged?.Invoke(sender, new SmartPauseEventArgs(SmartPauseState.On));
+                    return;
+                }
+            }
+            SmartPauseStateChanged?.Invoke(sender, new SmartPauseEventArgs(SmartPauseState.Off));
         }
 
         public void Dispose()
         {
-            foreach (var registryKeyWatcher in registryKeyWatchers)
+            foreach (var watcher in watchers)
             {
-                registryKeyWatcher.Dispose();
+                watcher.Dispose();
             }
         }
     }

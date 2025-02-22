@@ -35,7 +35,7 @@ namespace InOculus
         private ImageSource imgSrcPlay;
         private ImageSource imgSrcStop;
 
-        private SmartPauseWatcher smartPauseWatcher;
+        private SmartPauseManager smartPauseManager;
 
 
         public MainWindow()
@@ -50,8 +50,8 @@ namespace InOculus
             thumbnailPreview = new ThumbnailPreview(this.GetWindowHandle(), this);
             generateFocusTimers(Properties.Settings.Default.FocusInterval);
 
-            smartPauseWatcher = new SmartPauseWatcher();
-            smartPauseWatcher.SmartPauseEvent += SmartPauseWatcher_SmartPauseEvent;
+            smartPauseManager = new SmartPauseManager();
+            smartPauseManager.SmartPauseStateChanged += SmartPauseManager_SmartPauseStateChanged;
         }
 
         private void generateBreakWindowsAndTimer()
@@ -290,7 +290,7 @@ namespace InOculus
         protected override void OnClosed(EventArgs e)
         {
             disposeFocusTimers();
-            smartPauseWatcher.Dispose();
+            smartPauseManager.Dispose();
             base.OnClosed(e);
             Application.Current.Shutdown();
         }
@@ -318,15 +318,15 @@ namespace InOculus
             thumbnailPreview.Enable(WindowState == WindowState.Minimized);
         }
 
-        private void SmartPauseWatcher_SmartPauseEvent(object sender, SmartPauseEventArgs e)
+        private void SmartPauseManager_SmartPauseStateChanged(object sender, SmartPauseEventArgs e)
         {
             var currentAppState = ((App)Application.Current).State;
 
-            if (e.AppStateToTrigger == AppState.Pause && currentAppState == AppState.Focus)
+            if (e.SmartPauseState == SmartPauseState.On && currentAppState == AppState.Focus)
             {
                 Dispatcher.Invoke(() => SetState(AppState.Pause));
             }
-            else if (e.AppStateToTrigger == AppState.Focus && currentAppState != AppState.Focus)
+            else if (e.SmartPauseState == SmartPauseState.Off && currentAppState == AppState.Pause)
             {
                 Dispatcher.Invoke(() => SetState(AppState.Focus));
                 // If there should already have been break during app pause, give it few minutes before generating break.

@@ -4,11 +4,11 @@ namespace InOculus.Utilities.SmartPause
 {
     internal class SmartPauseEventArgs : EventArgs
     {
-        public AppState AppStateToTrigger { get; }
+        public SmartPauseState SmartPauseState { get; }
 
-        public SmartPauseEventArgs(AppState appStateToTrigger)
+        public SmartPauseEventArgs(SmartPauseState smartPauseState)
         {
-            AppStateToTrigger = appStateToTrigger;
+            SmartPauseState = smartPauseState;
         }
     }
 }
