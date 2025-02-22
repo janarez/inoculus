@@ -14,6 +14,7 @@ namespace InOculus.Utilities.SmartPause
         public SmartPauseManager()
         {
             var doNotDisturbPoller = new DoNotDisturbModePoller();
+            watchers.Add(doNotDisturbPoller);
             doNotDisturbPoller.SmartPauseStateChanged += SmartPauseWatcher_SmartPauseStateChanged;
 
             // Cannot use HKEY_CURRENT_USER directly as it's not tracked by `RegistryEvent`, so we need to look through HKEY_USERS.

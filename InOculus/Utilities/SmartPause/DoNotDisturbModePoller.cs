@@ -7,7 +7,7 @@ namespace InOculus.Utilities.SmartPause
     {
         public event EventHandler SmartPauseStateChanged;
         private Timer pollerTimer;
-        private SmartPauseState currentState = SmartPauseState.Off;
+        private SmartPauseState currentState = SmartPauseState.Unknown;
 
         public DoNotDisturbModePoller()
         {
@@ -20,11 +20,10 @@ namespace InOculus.Utilities.SmartPause
         private SmartPauseState pollSmartPauseState()
         {
             DoNotDisturbInterop.GetDoNotDisturbMode(out var focusAssistMode);
-            if (focusAssistMode == DoNotDisturbMode.PriorityOnly || focusAssistMode == DoNotDisturbMode.AlarmOnly)
+            if (focusAssistMode is DoNotDisturbMode.PriorityOnly or DoNotDisturbMode.AlarmOnly)
             {
                 return SmartPauseState.On;
             }
-
             return SmartPauseState.Off;
         }
 
@@ -41,7 +40,7 @@ namespace InOculus.Utilities.SmartPause
 
         public SmartPauseState GetSmartPauseState()
         {
-            return pollSmartPauseState();
+            return currentState;
         }
 
         public void Dispose()

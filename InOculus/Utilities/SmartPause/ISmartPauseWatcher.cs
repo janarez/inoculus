@@ -12,6 +12,7 @@ namespace InOculus.Utilities.SmartPause
     internal enum SmartPauseState
     {
         On,
-        Off
+        Off,
+        Unknown
     }
 }
