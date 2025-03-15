@@ -11,8 +11,7 @@ namespace InOculus.Utilities.SmartPause
 
         public DoNotDisturbModePoller()
         {
-            // Poll once a minute.
-            pollerTimer = new Timer(1_000);
+            pollerTimer = new Timer(60_000);
             pollerTimer.Elapsed += PollerTimer_Elapsed;
             pollerTimer.Start();
         }

@@ -13,9 +13,9 @@ namespace InOculus.Utilities.SmartPause
 
         public SmartPauseManager()
         {
-            var doNotDisturbPoller = new DoNotDisturbModePoller();
-            watchers.Add(doNotDisturbPoller);
-            doNotDisturbPoller.SmartPauseStateChanged += SmartPauseWatcher_SmartPauseStateChanged;
+            AddWatcher(new DoNotDisturbModePoller());
+            // Zoom Sharing Host.
+            AddWatcher(new ProcessWatcher("CptHost.exe"));
 
             // Cannot use HKEY_CURRENT_USER directly as it's not tracked by `RegistryEvent`, so we need to look through HKEY_USERS.
             var currentUserPath = WindowsIdentity.GetCurrent().User?.Value;
@@ -41,9 +41,7 @@ namespace InOculus.Utilities.SmartPause
                         foreach (var appName in parentRegistryKey.GetSubKeyNames())
                         {
                             var registryKeyPath = $"{constentPath}\\{appName}";
-                            var registryKeyWatcher = new LastUsedTimeRegistryKeyWatcher(registryKeyPath);
-                            watchers.Add(registryKeyWatcher);
-                            registryKeyWatcher.SmartPauseStateChanged += SmartPauseWatcher_SmartPauseStateChanged;
+                            AddWatcher(new LastUsedTimeRegistryKeyWatcher(registryKeyPath));
                         }
 
                         parentRegistryKey.Close();
@@ -51,6 +49,13 @@ namespace InOculus.Utilities.SmartPause
                 }
             }
         }
+
+        private void AddWatcher(ISmartPauseWatcher watcher)
+        {
+            watchers.Add(watcher);
+            watcher.SmartPauseStateChanged += SmartPauseWatcher_SmartPauseStateChanged;
+        }
+
         private void SmartPauseWatcher_SmartPauseStateChanged(object sender, EventArgs e)
         {
             foreach (var watcher in watchers)
